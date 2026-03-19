@@ -2,12 +2,41 @@ import { client } from "@/lib/amplifyClient"
 import {
   ProductSelectionSet,
   type CreateProductInput,
+  type FeaturingItem,
   type Product,
+  type ProductFeatureItem,
+  type RawProduct,
   type UpdateProductInput,
 } from "@/types/product.types"
 // import { client } from "@/types/queryClient"
 
 // Product API
+// export const getProductsList = async (
+//   nextTokenParam: string | null = null,
+//   prevProductList: Product[] = []
+// ): Promise<Product[]> => {
+//   const { data, nextToken } = await client.models.Product.list({
+//     limit: 200,
+//     nextToken: nextTokenParam,
+//     selectionSet: ProductSelectionSet,
+//   })
+//   const productList = [...prevProductList, ...data]
+
+//   return nextToken ? getProductsList(nextToken, productList) : productList
+// }
+
+const mapProduct = (p: RawProduct): Product => {
+  return {
+    ...p,
+    featuring: Array.isArray(p.featuring)
+      ? (p.featuring as FeaturingItem[])
+      : undefined,
+    productFeatures: Array.isArray(p.productFeatures)
+      ? (p.productFeatures as ProductFeatureItem[])
+      : [],
+  }
+}
+
 export const getProductsList = async (
   nextTokenParam: string | null = null,
   prevProductList: Product[] = []
@@ -17,7 +46,10 @@ export const getProductsList = async (
     nextToken: nextTokenParam,
     selectionSet: ProductSelectionSet,
   })
-  const productList = [...prevProductList, ...data]
+
+  const mapped = data.map(mapProduct)
+
+  const productList = [...prevProductList, ...mapped]
 
   return nextToken ? getProductsList(nextToken, productList) : productList
 }

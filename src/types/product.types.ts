@@ -18,14 +18,56 @@ export const ProductSelectionSet = [
   "updatedAt",
 ] as const
 
-export type Product = SelectionSet<
+// ------------------------
+// CUSTOM JSON TYPES
+// ------------------------
+
+export type FeaturingItem = {
+  label: string
+  value: string
+}
+
+export type ProductFeatureItem = {
+  title: string
+  description: string
+}
+
+type BaseProduct = SelectionSet<Schema["Product"], typeof ProductSelectionSet>
+
+export type Product = Omit<BaseProduct, "featuring" | "productFeatures"> & {
+  featuring?: FeaturingItem[]
+  productFeatures: ProductFeatureItem[]
+}
+
+export type RawProduct = SelectionSet<
   Schema["Product"],
   typeof ProductSelectionSet
 >
 
-export type CreateProductInput = Schema["Product"]["createType"]
+// export type Product = SelectionSet<
+//   Schema["Product"],
+//   typeof ProductSelectionSet
+// >
 
-export type UpdateProductInput = Schema["Product"]["updateType"]
+// export type CreateProductInput = Schema["Product"]["createType"]
+
+// export type UpdateProductInput = Schema["Product"]["updateType"]
+
+export type CreateProductInput = Omit<
+  Schema["Product"]["createType"],
+  "featuring" | "productFeatures"
+> & {
+  featuring?: FeaturingItem[]
+  productFeatures: ProductFeatureItem[]
+}
+
+export type UpdateProductInput = Omit<
+  Schema["Product"]["updateType"],
+  "featuring" | "productFeatures"
+> & {
+  featuring?: FeaturingItem[]
+  productFeatures?: ProductFeatureItem[]
+}
 
 export const ProductTypeKeys: TypeKeysEnum<Product> = {
   id: {
@@ -98,7 +140,8 @@ export const ProductTypeKeys: TypeKeysEnum<Product> = {
     isRequired: true,
     isSortable: false,
     isSearchable: false,
-    formatter: (d) => JSON.stringify(d.productFeatures),
+    // formatter: (d) => JSON.stringify(d.productFeatures),
+    formatter: (d) => d.productFeatures?.map((f) => f.title).join(", ") ?? "",
   },
   createdAt: {
     type: "datetime",
