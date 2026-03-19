@@ -29,7 +29,7 @@ const useProductCreate = () => {
     },
     // If the mutation fails,
     // use the context returned from onMutate to rollback
-    onError: (err, newProduct, context) => {
+    onError: (_err, _newProduct, context) => {
       // console.error('Error saving record:', err, newProduct);
       if (context?.previousProduct) {
         queryClient.setQueryData(queryKey, context.previousProduct)

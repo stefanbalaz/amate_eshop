@@ -34,7 +34,7 @@ const useProductDelete = () => {
       }
     },
     // If the mutation fails, use the context we returned above
-    onError: (err, productsToDelete, context) => {
+    onError: (_err, _productsToDelete, context) => {
       // console.error('Error deleting record:', err, productsToDelete);
       if (context?.previousProduct) {
         queryClient.setQueryData(queryKey, context.previousProduct)

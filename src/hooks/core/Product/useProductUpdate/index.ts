@@ -37,7 +37,7 @@ const useProductUpdate = () => {
       }
     },
     // If the mutation fails, use the context we returned above
-    onError: (err, newProduct, context) => {
+    onError: (_err, _newProduct, context) => {
       // console.error('Error updating record:', err, newProduct);
       if (context?.previousProduct) {
         queryClient.setQueryData(queryKey, context.previousProduct)
