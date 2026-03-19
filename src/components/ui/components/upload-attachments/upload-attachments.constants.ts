@@ -1,0 +1,3 @@
+export const MAX_TOTAL_SIZE_BYTES = 31_457_280;
+export const DEFAULT_MAX_FILE_SIZE_BYTES = 10_000_000;
+export const DEFAULT_MAX_FILES = 20;

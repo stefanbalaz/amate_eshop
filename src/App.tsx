@@ -1,21 +1,27 @@
-import { Button } from "@/components/ui/button"
+import { Route, Routes } from "react-router-dom";
+import "./index.css";
+import { CheckoutPage, ContactPage, Home } from "@/modules";
+import { Footer, Header } from "./components";
+import { AppDrawer } from "@/features/drawer";
 
-export function App() {
+function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <AppDrawer drawerID="company-info" size="md" />
+
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<div>Not found</div>} />
+        </Routes>
+      </main>
+
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
