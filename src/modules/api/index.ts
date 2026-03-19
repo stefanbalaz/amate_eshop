@@ -1,10 +1,11 @@
+import { client } from "@/lib/amplifyClient"
 import {
   ProductSelectionSet,
   type CreateProductInput,
   type Product,
   type UpdateProductInput,
 } from "@/types/product.types"
-import { client } from "@/types/queryClient"
+// import { client } from "@/types/queryClient"
 
 // Product API
 export const getProductsList = async (

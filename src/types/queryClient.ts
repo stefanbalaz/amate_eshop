@@ -17,21 +17,23 @@
 //   Products = "products",
 // }
 
-import { QueryClient } from "@tanstack/react-query"
-import { Amplify } from "aws-amplify"
-import { generateClient } from "aws-amplify/data"
+// DIFFERENT VERSION
 
-import outputs from "../../amplify_outputs.json"
-import type { Schema } from "./amplify"
+// import { QueryClient } from "@tanstack/react-query"
+// import { Amplify } from "aws-amplify"
+// import { generateClient } from "aws-amplify/data"
 
-Amplify.configure(outputs)
+// import outputs from "../../amplify_outputs.json"
+// import type { Schema } from "./amplify"
 
-export const queryClient = new QueryClient()
+// Amplify.configure(outputs)
 
-export const client = generateClient<Schema>()
+// export const queryClient = new QueryClient()
 
-export type { Schema } from "./amplify"
+// export const client = generateClient<Schema>()
 
-export enum QueryKeys {
-  Products = "products",
-}
+// export type { Schema } from "./amplify"
+
+// export enum QueryKeys {
+//   Products = "products",
+// }

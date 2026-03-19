@@ -1,7 +1,7 @@
 // import type { SelectionSet } from "aws-amplify/api"
 import type { SelectionSet } from "aws-amplify/data"
 import type { TypeKeysEnum } from "./general.types"
-import type { Schema } from "./queryClient"
+import type { Schema } from "./amplify"
 import { getDateAndTimeInGermanFromAWSDateTimeFormat } from "@/utils/dates"
 
 export const ProductSelectionSet = [
