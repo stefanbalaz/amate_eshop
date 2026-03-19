@@ -1,6 +1,7 @@
 import { deleteProduct } from "@/modules/api"
 import type { Product } from "@/modules/home/components/product-card"
-import { queryClient, QueryKeys } from "@/types/queryClient"
+import { queryClient, QueryKeys } from "@/types"
+// import { queryClient, QueryKeys } from "@/types/queryClient"
 import { useMutation } from "@tanstack/react-query"
 
 const useProductDelete = () => {
