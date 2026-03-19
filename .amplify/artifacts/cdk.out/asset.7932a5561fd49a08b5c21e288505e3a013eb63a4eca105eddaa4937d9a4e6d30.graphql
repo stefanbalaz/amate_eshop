@@ -1,0 +1,573 @@
+type Product @aws_iam @aws_api_key {
+  sku: String!
+  name: String!
+  slug: String!
+  description: String
+  imageUrl: AWSURL
+  priceCents: Int!
+  currency: String!
+  stock: Int!
+  isActive: Boolean!
+  category: String
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Order @aws_iam @aws_api_key {
+  orderNumber: String!
+  status: String
+  paymentMethod: String
+  paymentStatus: String
+  currency: String!
+  totalCents: Int!
+  email: AWSEmail!
+  firstName: String
+  lastName: String
+  deliveryAddress: String
+  invoiceAddress: String
+  isCompany: Boolean
+  companyName: String
+  orderNotes: String
+  items: AWSJSON!
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ContactMessage @aws_iam @aws_api_key {
+  name: String!
+  email: AWSEmail!
+  message: String!
+  isResolved: Boolean!
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type NewsletterSubscriber @aws_iam @aws_api_key {
+  email: AWSEmail!
+  isActive: Boolean!
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input AmplifyAIConversationTurnErrorInput {
+  errorType: String!
+  message: String!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelProductConnection @aws_api_key @aws_iam {
+  items: [Product]!
+  nextToken: String
+}
+
+input ModelProductFilterInput {
+  sku: ModelStringInput
+  name: ModelStringInput
+  slug: ModelStringInput
+  description: ModelStringInput
+  imageUrl: ModelStringInput
+  priceCents: ModelIntInput
+  currency: ModelStringInput
+  stock: ModelIntInput
+  isActive: ModelBooleanInput
+  category: ModelStringInput
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelProductFilterInput]
+  or: [ModelProductFilterInput]
+  not: ModelProductFilterInput
+}
+
+type Query {
+  getProduct(id: ID!): Product @aws_api_key @aws_iam
+  listProducts(filter: ModelProductFilterInput, limit: Int, nextToken: String): ModelProductConnection @aws_api_key @aws_iam
+  getOrder(id: ID!): Order @aws_api_key @aws_iam
+  listOrders(filter: ModelOrderFilterInput, limit: Int, nextToken: String): ModelOrderConnection @aws_api_key @aws_iam
+  getContactMessage(id: ID!): ContactMessage @aws_api_key @aws_iam
+  listContactMessages(filter: ModelContactMessageFilterInput, limit: Int, nextToken: String): ModelContactMessageConnection @aws_api_key @aws_iam
+  getNewsletterSubscriber(id: ID!): NewsletterSubscriber @aws_api_key @aws_iam
+  listNewsletterSubscribers(filter: ModelNewsletterSubscriberFilterInput, limit: Int, nextToken: String): ModelNewsletterSubscriberConnection @aws_api_key @aws_iam
+}
+
+input ModelProductConditionInput {
+  sku: ModelStringInput
+  name: ModelStringInput
+  slug: ModelStringInput
+  description: ModelStringInput
+  imageUrl: ModelStringInput
+  priceCents: ModelIntInput
+  currency: ModelStringInput
+  stock: ModelIntInput
+  isActive: ModelBooleanInput
+  category: ModelStringInput
+  and: [ModelProductConditionInput]
+  or: [ModelProductConditionInput]
+  not: ModelProductConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateProductInput {
+  sku: String!
+  name: String!
+  slug: String!
+  description: String
+  imageUrl: AWSURL
+  priceCents: Int!
+  currency: String!
+  stock: Int!
+  isActive: Boolean!
+  category: String
+  id: ID
+}
+
+input UpdateProductInput {
+  sku: String
+  name: String
+  slug: String
+  description: String
+  imageUrl: AWSURL
+  priceCents: Int
+  currency: String
+  stock: Int
+  isActive: Boolean
+  category: String
+  id: ID!
+}
+
+input DeleteProductInput {
+  id: ID!
+}
+
+type Mutation {
+  createProduct(input: CreateProductInput!, condition: ModelProductConditionInput): Product @aws_api_key @aws_iam
+  updateProduct(input: UpdateProductInput!, condition: ModelProductConditionInput): Product @aws_api_key @aws_iam
+  deleteProduct(input: DeleteProductInput!, condition: ModelProductConditionInput): Product @aws_api_key @aws_iam
+  createOrder(input: CreateOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  updateOrder(input: UpdateOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  deleteOrder(input: DeleteOrderInput!, condition: ModelOrderConditionInput): Order @aws_api_key @aws_iam
+  createContactMessage(input: CreateContactMessageInput!, condition: ModelContactMessageConditionInput): ContactMessage @aws_api_key @aws_iam
+  updateContactMessage(input: UpdateContactMessageInput!, condition: ModelContactMessageConditionInput): ContactMessage @aws_api_key @aws_iam
+  deleteContactMessage(input: DeleteContactMessageInput!, condition: ModelContactMessageConditionInput): ContactMessage @aws_api_key @aws_iam
+  createNewsletterSubscriber(input: CreateNewsletterSubscriberInput!, condition: ModelNewsletterSubscriberConditionInput): NewsletterSubscriber @aws_api_key @aws_iam
+  updateNewsletterSubscriber(input: UpdateNewsletterSubscriberInput!, condition: ModelNewsletterSubscriberConditionInput): NewsletterSubscriber @aws_api_key @aws_iam
+  deleteNewsletterSubscriber(input: DeleteNewsletterSubscriberInput!, condition: ModelNewsletterSubscriberConditionInput): NewsletterSubscriber @aws_api_key @aws_iam
+}
+
+input ModelSubscriptionProductFilterInput {
+  sku: ModelSubscriptionStringInput
+  name: ModelSubscriptionStringInput
+  slug: ModelSubscriptionStringInput
+  description: ModelSubscriptionStringInput
+  imageUrl: ModelSubscriptionStringInput
+  priceCents: ModelSubscriptionIntInput
+  currency: ModelSubscriptionStringInput
+  stock: ModelSubscriptionIntInput
+  isActive: ModelSubscriptionBooleanInput
+  category: ModelSubscriptionStringInput
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionProductFilterInput]
+  or: [ModelSubscriptionProductFilterInput]
+}
+
+type Subscription {
+  onCreateProduct(filter: ModelSubscriptionProductFilterInput): Product @aws_subscribe(mutations: ["createProduct"]) @aws_api_key @aws_iam
+  onUpdateProduct(filter: ModelSubscriptionProductFilterInput): Product @aws_subscribe(mutations: ["updateProduct"]) @aws_api_key @aws_iam
+  onDeleteProduct(filter: ModelSubscriptionProductFilterInput): Product @aws_subscribe(mutations: ["deleteProduct"]) @aws_api_key @aws_iam
+  onCreateOrder(filter: ModelSubscriptionOrderFilterInput): Order @aws_subscribe(mutations: ["createOrder"]) @aws_api_key @aws_iam
+  onUpdateOrder(filter: ModelSubscriptionOrderFilterInput): Order @aws_subscribe(mutations: ["updateOrder"]) @aws_api_key @aws_iam
+  onDeleteOrder(filter: ModelSubscriptionOrderFilterInput): Order @aws_subscribe(mutations: ["deleteOrder"]) @aws_api_key @aws_iam
+  onCreateContactMessage(filter: ModelSubscriptionContactMessageFilterInput): ContactMessage @aws_subscribe(mutations: ["createContactMessage"]) @aws_api_key @aws_iam
+  onUpdateContactMessage(filter: ModelSubscriptionContactMessageFilterInput): ContactMessage @aws_subscribe(mutations: ["updateContactMessage"]) @aws_api_key @aws_iam
+  onDeleteContactMessage(filter: ModelSubscriptionContactMessageFilterInput): ContactMessage @aws_subscribe(mutations: ["deleteContactMessage"]) @aws_api_key @aws_iam
+  onCreateNewsletterSubscriber(filter: ModelSubscriptionNewsletterSubscriberFilterInput): NewsletterSubscriber @aws_subscribe(mutations: ["createNewsletterSubscriber"]) @aws_api_key @aws_iam
+  onUpdateNewsletterSubscriber(filter: ModelSubscriptionNewsletterSubscriberFilterInput): NewsletterSubscriber @aws_subscribe(mutations: ["updateNewsletterSubscriber"]) @aws_api_key @aws_iam
+  onDeleteNewsletterSubscriber(filter: ModelSubscriptionNewsletterSubscriberFilterInput): NewsletterSubscriber @aws_subscribe(mutations: ["deleteNewsletterSubscriber"]) @aws_api_key @aws_iam
+}
+
+type ModelOrderConnection @aws_api_key @aws_iam {
+  items: [Order]!
+  nextToken: String
+}
+
+input ModelOrderFilterInput {
+  orderNumber: ModelStringInput
+  status: ModelStringInput
+  paymentMethod: ModelStringInput
+  paymentStatus: ModelStringInput
+  currency: ModelStringInput
+  totalCents: ModelIntInput
+  email: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  deliveryAddress: ModelStringInput
+  invoiceAddress: ModelStringInput
+  isCompany: ModelBooleanInput
+  companyName: ModelStringInput
+  orderNotes: ModelStringInput
+  items: ModelStringInput
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelOrderFilterInput]
+  or: [ModelOrderFilterInput]
+  not: ModelOrderFilterInput
+}
+
+input ModelOrderConditionInput {
+  orderNumber: ModelStringInput
+  status: ModelStringInput
+  paymentMethod: ModelStringInput
+  paymentStatus: ModelStringInput
+  currency: ModelStringInput
+  totalCents: ModelIntInput
+  email: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  deliveryAddress: ModelStringInput
+  invoiceAddress: ModelStringInput
+  isCompany: ModelBooleanInput
+  companyName: ModelStringInput
+  orderNotes: ModelStringInput
+  items: ModelStringInput
+  and: [ModelOrderConditionInput]
+  or: [ModelOrderConditionInput]
+  not: ModelOrderConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateOrderInput {
+  orderNumber: String!
+  status: String
+  paymentMethod: String
+  paymentStatus: String
+  currency: String!
+  totalCents: Int!
+  email: AWSEmail!
+  firstName: String
+  lastName: String
+  deliveryAddress: String
+  invoiceAddress: String
+  isCompany: Boolean
+  companyName: String
+  orderNotes: String
+  items: AWSJSON!
+  id: ID
+}
+
+input UpdateOrderInput {
+  orderNumber: String
+  status: String
+  paymentMethod: String
+  paymentStatus: String
+  currency: String
+  totalCents: Int
+  email: AWSEmail
+  firstName: String
+  lastName: String
+  deliveryAddress: String
+  invoiceAddress: String
+  isCompany: Boolean
+  companyName: String
+  orderNotes: String
+  items: AWSJSON
+  id: ID!
+}
+
+input DeleteOrderInput {
+  id: ID!
+}
+
+input ModelSubscriptionOrderFilterInput {
+  orderNumber: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  paymentMethod: ModelSubscriptionStringInput
+  paymentStatus: ModelSubscriptionStringInput
+  currency: ModelSubscriptionStringInput
+  totalCents: ModelSubscriptionIntInput
+  email: ModelSubscriptionStringInput
+  firstName: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
+  deliveryAddress: ModelSubscriptionStringInput
+  invoiceAddress: ModelSubscriptionStringInput
+  isCompany: ModelSubscriptionBooleanInput
+  companyName: ModelSubscriptionStringInput
+  orderNotes: ModelSubscriptionStringInput
+  items: ModelSubscriptionStringInput
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionOrderFilterInput]
+  or: [ModelSubscriptionOrderFilterInput]
+}
+
+type ModelContactMessageConnection @aws_api_key @aws_iam {
+  items: [ContactMessage]!
+  nextToken: String
+}
+
+input ModelContactMessageFilterInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  message: ModelStringInput
+  isResolved: ModelBooleanInput
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelContactMessageFilterInput]
+  or: [ModelContactMessageFilterInput]
+  not: ModelContactMessageFilterInput
+}
+
+input ModelContactMessageConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  message: ModelStringInput
+  isResolved: ModelBooleanInput
+  and: [ModelContactMessageConditionInput]
+  or: [ModelContactMessageConditionInput]
+  not: ModelContactMessageConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateContactMessageInput {
+  name: String!
+  email: AWSEmail!
+  message: String!
+  isResolved: Boolean!
+  id: ID
+}
+
+input UpdateContactMessageInput {
+  name: String
+  email: AWSEmail
+  message: String
+  isResolved: Boolean
+  id: ID!
+}
+
+input DeleteContactMessageInput {
+  id: ID!
+}
+
+input ModelSubscriptionContactMessageFilterInput {
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  message: ModelSubscriptionStringInput
+  isResolved: ModelSubscriptionBooleanInput
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionContactMessageFilterInput]
+  or: [ModelSubscriptionContactMessageFilterInput]
+}
+
+type ModelNewsletterSubscriberConnection @aws_api_key @aws_iam {
+  items: [NewsletterSubscriber]!
+  nextToken: String
+}
+
+input ModelNewsletterSubscriberFilterInput {
+  email: ModelStringInput
+  isActive: ModelBooleanInput
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelNewsletterSubscriberFilterInput]
+  or: [ModelNewsletterSubscriberFilterInput]
+  not: ModelNewsletterSubscriberFilterInput
+}
+
+input ModelNewsletterSubscriberConditionInput {
+  email: ModelStringInput
+  isActive: ModelBooleanInput
+  and: [ModelNewsletterSubscriberConditionInput]
+  or: [ModelNewsletterSubscriberConditionInput]
+  not: ModelNewsletterSubscriberConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateNewsletterSubscriberInput {
+  email: AWSEmail!
+  isActive: Boolean!
+  id: ID
+}
+
+input UpdateNewsletterSubscriberInput {
+  email: AWSEmail
+  isActive: Boolean
+  id: ID!
+}
+
+input DeleteNewsletterSubscriberInput {
+  id: ID!
+}
+
+input ModelSubscriptionNewsletterSubscriberFilterInput {
+  email: ModelSubscriptionStringInput
+  isActive: ModelSubscriptionBooleanInput
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionNewsletterSubscriberFilterInput]
+  or: [ModelSubscriptionNewsletterSubscriberFilterInput]
+}

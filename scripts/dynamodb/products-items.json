@@ -1,0 +1,168 @@
+[
+  {
+    "id": "mock-1",
+    "productBrand": "AMATE",
+    "productName": "Klasik",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/klasik.png",
+    "color": "#eab308",
+    "featuring": {
+      "label": "Bestseller",
+      "className": "bg-red-500"
+    },
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-2",
+    "productBrand": "AMATE",
+    "productName": "Zázvor",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/ginger.png",
+    "color": "#a855f7",
+    "featuring": {
+      "label": "Bestseller",
+      "className": "bg-red-500"
+    },
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-3",
+    "productBrand": "AMATE",
+    "productName": "Konope",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/hemp.png",
+    "color": "#22c55e",
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-4",
+    "productBrand": "AMATE",
+    "productName": "Melón",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/melon.png",
+    "color": "#ef4444",
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-5",
+    "productBrand": "AMATE",
+    "productName": "Mäta",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/mint.png",
+    "color": "#3b82f6",
+    "featuring": {
+      "label": "Bestseller",
+      "className": "bg-red-500"
+    },
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-6",
+    "productBrand": "AMATE",
+    "productName": "Zero",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/zero.png",
+    "color": "#9ca3af",
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  },
+  {
+    "id": "mock-7",
+    "productBrand": "AMATE",
+    "productName": "Uhorka",
+    "productVolume": "0,33 l",
+    "productPrice": "1,89 €",
+    "productPicture": "products/cucumber.png",
+    "color": "#7a8c3e",
+    "productFeatures": [
+      { "icon": "veganIcon", "alt": "Vegan", "className": "bg-green-200" },
+      {
+        "icon": "lactoseFreeIcon",
+        "alt": "Lactose Free",
+        "className": "bg-yellow-200"
+      },
+      {
+        "icon": "glutenFreeIcon",
+        "alt": "Gluten Free",
+        "className": "bg-blue-200"
+      }
+    ]
+  }
+]

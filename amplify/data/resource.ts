@@ -1,4 +1,4 @@
-import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend"
 
 const schema = a.schema({
   // ------------------------
@@ -6,19 +6,14 @@ const schema = a.schema({
   // ------------------------
   Product: a
     .model({
-      sku: a.string().required(),
-      name: a.string().required(),
-      slug: a.string().required(),
-      description: a.string(),
-      imageUrl: a.url(),
-
-      priceCents: a.integer().required(),
-      currency: a.string().required(),
-
-      stock: a.integer().required(),
-      isActive: a.boolean().required(),
-
-      category: a.string(),
+      productBrand: a.string().required(),
+      productName: a.string().required(),
+      productVolume: a.string().required(),
+      productPrice: a.string().required(),
+      productPicture: a.string().required(),
+      color: a.string().required(),
+      featuring: a.json(),
+      productFeatures: a.json().required(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -73,13 +68,13 @@ const schema = a.schema({
       isActive: a.boolean().required(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
-});
+})
 
-export type Schema = ClientSchema<typeof schema>;
+export type Schema = ClientSchema<typeof schema>
 
 export const data = defineData({
   schema,
   authorizationModes: {
     defaultAuthorizationMode: "apiKey",
   },
-});
+})

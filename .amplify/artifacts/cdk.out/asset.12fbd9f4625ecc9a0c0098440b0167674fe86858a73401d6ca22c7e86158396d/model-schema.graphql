@@ -1,0 +1,46 @@
+type Product @model @auth(rules: [{allow: public, provider: apiKey}])
+{
+  sku: String!
+  name: String!
+  slug: String!
+  description: String
+  imageUrl: AWSURL
+  priceCents: Int!
+  currency: String!
+  stock: Int!
+  isActive: Boolean!
+  category: String
+}
+
+type Order @model @auth(rules: [{allow: public, provider: apiKey}])
+{
+  orderNumber: String!
+  status: String
+  paymentMethod: String
+  paymentStatus: String
+  currency: String!
+  totalCents: Int!
+  email: AWSEmail!
+  firstName: String
+  lastName: String
+  deliveryAddress: String
+  invoiceAddress: String
+  isCompany: Boolean
+  companyName: String
+  orderNotes: String
+  items: AWSJSON!
+}
+
+type ContactMessage @model @auth(rules: [{allow: public, provider: apiKey}])
+{
+  name: String!
+  email: AWSEmail!
+  message: String!
+  isResolved: Boolean!
+}
+
+type NewsletterSubscriber @model @auth(rules: [{allow: public, provider: apiKey}])
+{
+  email: AWSEmail!
+  isActive: Boolean!
+}
