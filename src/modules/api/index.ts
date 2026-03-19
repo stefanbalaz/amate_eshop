@@ -55,24 +55,20 @@ export const getProductsList = async (
 }
 
 export const getProduct = async (id: string): Promise<Product | null> => {
-  const { data } = (await client.models.Product.get(
+  const { data } = await client.models.Product.get(
     {
       id,
     },
     {
       selectionSet: ProductSelectionSet,
     }
-  )) as {
-    data: Product | null
-  }
+  )
 
-  return data
+  return data ? mapProduct(data) : null
 }
 
 export const createProduct = async (input: CreateProductInput) => {
-  const { data } = (await client.models.Product.create(input)) as {
-    data: Product | null
-  }
+  const { data } = await client.models.Product.create(input)
 
   if (!data) return null
 
@@ -82,9 +78,7 @@ export const createProduct = async (input: CreateProductInput) => {
 }
 
 export const updateProduct = async (input: UpdateProductInput) => {
-  const { data } = (await client.models.Product.update(input)) as {
-    data: Product | null
-  }
+  const { data } = await client.models.Product.update(input)
 
   if (!data) return null
 
