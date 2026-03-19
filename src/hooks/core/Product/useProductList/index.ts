@@ -7,7 +7,16 @@ import { getProductsList } from "@/modules/api"
 const useProductsList = () => {
   const queryKey = [QueryKeys.Products]
 
-  const { data, isLoading } = useQuery({
+  const {
+    data,
+    isLoading,
+    isFetching,
+    status,
+    fetchStatus,
+    dataUpdatedAt,
+    error,
+    isError,
+  } = useQuery({
     queryKey,
     queryFn: async () => {
       const queryResult = await getProductsList(null, [])
@@ -22,6 +31,12 @@ const useProductsList = () => {
   return {
     productsList,
     isLoading,
+    isFetching,
+    status,
+    fetchStatus,
+    dataUpdatedAt,
+    error,
+    isError,
   }
 }
 

@@ -19,7 +19,7 @@ const schema = a.schema({
       productPicture: a.string().required(),
       color: a.string().required(),
       featuring: a.json(),
-      productFeatures: a.json().required(),
+      // productFeatures: a.json().required(),
     })
     .authorization((allow) => [allow.guest()]),
 

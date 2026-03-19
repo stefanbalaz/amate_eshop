@@ -13,7 +13,7 @@ export const ProductSelectionSet = [
   "productPicture",
   "color",
   "featuring",
-  "productFeatures",
+  // "productFeatures",
   "createdAt",
   "updatedAt",
 ] as const
@@ -32,22 +32,22 @@ export type ProductFeatureItem = {
   description: string
 }
 
-type BaseProduct = SelectionSet<Schema["Product"], typeof ProductSelectionSet>
+// type BaseProduct = SelectionSet<Schema["Product"], typeof ProductSelectionSet>
 
-export type Product = Omit<BaseProduct, "featuring" | "productFeatures"> & {
-  featuring?: FeaturingItem[]
-  productFeatures: ProductFeatureItem[]
-}
+// export type Product = Omit<BaseProduct, "featuring" | "productFeatures"> & {
+//   featuring?: FeaturingItem[]
+//   productFeatures: ProductFeatureItem[]
+// }
 
-export type RawProduct = SelectionSet<
-  Schema["Product"],
-  typeof ProductSelectionSet
->
-
-// export type Product = SelectionSet<
+// export type RawProduct = SelectionSet<
 //   Schema["Product"],
 //   typeof ProductSelectionSet
 // >
+
+export type Product = SelectionSet<
+  Schema["Product"],
+  typeof ProductSelectionSet
+>
 
 // export type CreateProductInput = Schema["Product"]["createType"]
 
@@ -134,15 +134,15 @@ export const ProductTypeKeys: TypeKeysEnum<Product> = {
     isSearchable: false,
     formatter: (d) => JSON.stringify(d.featuring),
   },
-  productFeatures: {
-    type: "object",
-    isArray: false,
-    isRequired: true,
-    isSortable: false,
-    isSearchable: false,
-    // formatter: (d) => JSON.stringify(d.productFeatures),
-    formatter: (d) => d.productFeatures?.map((f) => f.title).join(", ") ?? "",
-  },
+  // productFeatures: {
+  //   type: "object",
+  //   isArray: false,
+  //   isRequired: true,
+  //   isSortable: false,
+  //   isSearchable: false,
+  //   formatter: (d) => JSON.stringify(d.productFeatures),
+  //   // formatter: (d) => d.productFeatures?.map((f) => f.title).join(", ") ?? "",
+  // },
   createdAt: {
     type: "datetime",
     isArray: false,

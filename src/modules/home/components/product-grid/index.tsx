@@ -1,6 +1,6 @@
-import { mockProducts } from "@/fixtures/mockProducts";
-import { useCart } from "@/context/use-cart";
-import ProductCard from "../product-card";
+import { mockProducts } from "@/fixtures/mockProducts"
+import { useCart } from "@/context/use-cart"
+import ProductCard from "../product-card"
 
 export default function ProductGrid() {
   const {
@@ -10,7 +10,7 @@ export default function ProductGrid() {
     handleInputChange,
     handleInputFocus,
     handleInputBlur,
-  } = useCart();
+  } = useCart()
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
@@ -32,5 +32,5 @@ export default function ProductGrid() {
         ))}
       </div>
     </section>
-  );
+  )
 }

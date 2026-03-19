@@ -1,42 +1,16 @@
 import { client } from "@/lib/amplifyClient"
 import {
   ProductSelectionSet,
-  type CreateProductInput,
-  type FeaturingItem,
+  // type CreateProductInput,
+  // type FeaturingItem,
   type Product,
-  type ProductFeatureItem,
-  type RawProduct,
-  type UpdateProductInput,
+  // type ProductFeatureItem,
+  // type RawProduct,
+  // type UpdateProductInput,
 } from "@/types/product.types"
 // import { client } from "@/types/queryClient"
 
 // Product API
-// export const getProductsList = async (
-//   nextTokenParam: string | null = null,
-//   prevProductList: Product[] = []
-// ): Promise<Product[]> => {
-//   const { data, nextToken } = await client.models.Product.list({
-//     limit: 200,
-//     nextToken: nextTokenParam,
-//     selectionSet: ProductSelectionSet,
-//   })
-//   const productList = [...prevProductList, ...data]
-
-//   return nextToken ? getProductsList(nextToken, productList) : productList
-// }
-
-const mapProduct = (p: RawProduct): Product => {
-  return {
-    ...p,
-    featuring: Array.isArray(p.featuring)
-      ? (p.featuring as FeaturingItem[])
-      : undefined,
-    productFeatures: Array.isArray(p.productFeatures)
-      ? (p.productFeatures as ProductFeatureItem[])
-      : [],
-  }
-}
-
 export const getProductsList = async (
   nextTokenParam: string | null = null,
   prevProductList: Product[] = []
@@ -47,45 +21,78 @@ export const getProductsList = async (
     selectionSet: ProductSelectionSet,
   })
 
-  const mapped = data.map(mapProduct)
+  console.log("Fetched products:", data)
 
-  const productList = [...prevProductList, ...mapped]
+  const productList = [...prevProductList, ...data]
 
   return nextToken ? getProductsList(nextToken, productList) : productList
 }
 
-export const getProduct = async (id: string): Promise<Product | null> => {
-  const { data } = await client.models.Product.get(
-    {
-      id,
-    },
-    {
-      selectionSet: ProductSelectionSet,
-    }
-  )
+// const mapProduct = (p: RawProduct): Product => {
+//   return {
+//     ...p,
+//     featuring: Array.isArray(p.featuring)
+//       ? (p.featuring as FeaturingItem[])
+//       : undefined,
+//     productFeatures: Array.isArray(p.productFeatures)
+//       ? (p.productFeatures as ProductFeatureItem[])
+//       : [],
+//   }
+// }
 
-  return data ? mapProduct(data) : null
-}
+// export const getProductsList = async (
+//   nextTokenParam: string | null = null,
+//   prevProductList: Product[] = []
+// ): Promise<Product[]> => {
+//   const { data, nextToken } = await client.models.Product.list({
+//     limit: 200,
+//     nextToken: nextTokenParam,
+//     selectionSet: ProductSelectionSet,
+//   })
 
-export const createProduct = async (input: CreateProductInput) => {
-  const { data } = await client.models.Product.create(input)
+//   console.log("Fetched products:", data)
 
-  if (!data) return null
+//   const mapped = data
+//     .filter((product): product is RawProduct => product !== null)
+//     .map(mapProduct)
 
-  const product = await getProduct(data.id)
+//   const productList = [...prevProductList, ...mapped]
 
-  return product
-}
+//   return nextToken ? getProductsList(nextToken, productList) : productList
+// }
 
-export const updateProduct = async (input: UpdateProductInput) => {
-  const { data } = await client.models.Product.update(input)
+// export const getProduct = async (id: string): Promise<Product | null> => {
+//   const { data } = await client.models.Product.get(
+//     {
+//       id,
+//     },
+//     {
+//       selectionSet: ProductSelectionSet,
+//     }
+//   )
 
-  if (!data) return null
+//   return data
+// }
 
-  const product = await getProduct(data.id)
+// export const createProduct = async (input: CreateProductInput) => {
+//   const { data } = await client.models.Product.create(input)
 
-  return product
-}
+//   if (!data) return null
+
+//   const product = await getProduct(data.id)
+
+//   return product
+// }
+
+// export const updateProduct = async (input: UpdateProductInput) => {
+//   const { data } = await client.models.Product.update(input)
+
+//   if (!data) return null
+
+//   const product = await getProduct(data.id)
+
+//   return product
+// }
 
 export const deleteProduct = async (product: Product) => {
   const { data } = await client.models.Product.delete({
