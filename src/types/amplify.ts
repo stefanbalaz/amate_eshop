@@ -1,1 +1,1 @@
-export type { Schema } from "../../amplify/data/resource"
+export type { Schema } from "../../amplify/amplify/data/resource"
