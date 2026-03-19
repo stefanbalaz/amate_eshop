@@ -15,7 +15,7 @@ const schema = a.schema({
       featuring: a.json(),
       productFeatures: a.json().required(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.guest()]),
 
   // ------------------------
   // ORDER
@@ -45,7 +45,7 @@ const schema = a.schema({
 
       items: a.json().required(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.guest()]),
 
   // ------------------------
   // CONTACT
@@ -57,7 +57,7 @@ const schema = a.schema({
       message: a.string().required(),
       isResolved: a.boolean().required(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.guest()]),
 
   // ------------------------
   // NEWSLETTER
@@ -67,14 +67,11 @@ const schema = a.schema({
       email: a.email().required(),
       isActive: a.boolean().required(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.guest()]),
 })
 
 export type Schema = ClientSchema<typeof schema>
 
 export const data = defineData({
   schema,
-  authorizationModes: {
-    defaultAuthorizationMode: "apiKey",
-  },
 })
