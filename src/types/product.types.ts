@@ -1,73 +1,34 @@
-// import type { SelectionSet } from "aws-amplify/api"
 import type { SelectionSet } from "aws-amplify/data"
 import type { TypeKeysEnum } from "./general.types"
 import type { Schema } from "./amplify"
-import { getDateAndTimeInGermanFromAWSDateTimeFormat } from "@/utils/dates"
 
 export const ProductSelectionSet = [
   "id",
   "productBrand",
   "productName",
-  "productVolume",
-  "productPrice",
+  "productVolumeMilliliter",
+  "productPriceCents",
   "productPicture",
-  "color",
-  "featuring",
-  // "productFeatures",
-  "createdAt",
-  "updatedAt",
+  "productColorClassName",
+  "productShortDescription",
+  "productDescription",
+  "productLegalDisclaimer",
+  "productSorting",
+  "productNutritionalInfo",
+  "productIngredients",
+  "productFeaturing.*",
+  "productFeatures.*",
+  "productFeatures.feature.*",
 ] as const
-
-// ------------------------
-// CUSTOM JSON TYPES
-// ------------------------
-
-export type FeaturingItem = {
-  label: string
-  value: string
-}
-
-export type ProductFeatureItem = {
-  title: string
-  description: string
-}
-
-// type BaseProduct = SelectionSet<Schema["Product"], typeof ProductSelectionSet>
-
-// export type Product = Omit<BaseProduct, "featuring" | "productFeatures"> & {
-//   featuring?: FeaturingItem[]
-//   productFeatures: ProductFeatureItem[]
-// }
-
-// export type RawProduct = SelectionSet<
-//   Schema["Product"],
-//   typeof ProductSelectionSet
-// >
 
 export type Product = SelectionSet<
   Schema["Product"],
   typeof ProductSelectionSet
 >
 
-// export type CreateProductInput = Schema["Product"]["createType"]
+export type CreateProductInput = Schema["Product"]["createType"]
 
-// export type UpdateProductInput = Schema["Product"]["updateType"]
-
-export type CreateProductInput = Omit<
-  Schema["Product"]["createType"],
-  "featuring" | "productFeatures"
-> & {
-  featuring?: FeaturingItem[]
-  productFeatures: ProductFeatureItem[]
-}
-
-export type UpdateProductInput = Omit<
-  Schema["Product"]["updateType"],
-  "featuring" | "productFeatures"
-> & {
-  featuring?: FeaturingItem[]
-  productFeatures?: ProductFeatureItem[]
-}
+export type UpdateProductInput = Schema["Product"]["updateType"]
 
 export const ProductTypeKeys: TypeKeysEnum<Product> = {
   id: {
@@ -94,21 +55,21 @@ export const ProductTypeKeys: TypeKeysEnum<Product> = {
     isSearchable: true,
     formatter: (d) => d.productName,
   },
-  productVolume: {
-    type: "string",
+  productVolumeMilliliter: {
+    type: "integer",
     isArray: false,
     isRequired: true,
     isSortable: true,
     isSearchable: false,
-    formatter: (d) => d.productVolume,
+    formatter: (d) => String(d.productVolumeMilliliter),
   },
-  productPrice: {
-    type: "string",
+  productPriceCents: {
+    type: "integer",
     isArray: false,
     isRequired: true,
     isSortable: true,
     isSearchable: false,
-    formatter: (d) => d.productPrice,
+    formatter: (d) => String(d.productPriceCents),
   },
   productPicture: {
     type: "string",
@@ -118,48 +79,78 @@ export const ProductTypeKeys: TypeKeysEnum<Product> = {
     isSearchable: false,
     formatter: (d) => d.productPicture,
   },
-  color: {
+  productColorClassName: {
     type: "string",
     isArray: false,
     isRequired: true,
-    isSortable: true,
+    isSortable: false,
     isSearchable: true,
-    formatter: (d) => d.color,
+    formatter: (d) => d.productColorClassName,
   },
-  featuring: {
+  productShortDescription: {
+    type: "string",
+    isArray: false,
+    isRequired: false,
+    isSortable: false,
+    isSearchable: true,
+    formatter: (d) => d.productShortDescription ?? "",
+  },
+  productDescription: {
+    type: "string",
+    isArray: false,
+    isRequired: false,
+    isSortable: false,
+    isSearchable: true,
+    formatter: (d) => d.productDescription ?? "",
+  },
+  productLegalDisclaimer: {
+    type: "string",
+    isArray: false,
+    isRequired: false,
+    isSortable: false,
+    isSearchable: true,
+    formatter: (d) => d.productLegalDisclaimer ?? "",
+  },
+  productSorting: {
+    type: "integer",
+    isArray: false,
+    isRequired: true,
+    isSortable: true,
+    isSearchable: false,
+    formatter: (d) => String(d.productSorting),
+  },
+  productNutritionalInfo: {
     type: "object",
     isArray: false,
     isRequired: false,
     isSortable: false,
     isSearchable: false,
-    formatter: (d) => JSON.stringify(d.featuring),
+    formatter: (d) => JSON.stringify(d.productNutritionalInfo ?? {}),
   },
-  // productFeatures: {
-  //   type: "object",
-  //   isArray: false,
-  //   isRequired: true,
-  //   isSortable: false,
-  //   isSearchable: false,
-  //   formatter: (d) => JSON.stringify(d.productFeatures),
-  //   // formatter: (d) => d.productFeatures?.map((f) => f.title).join(", ") ?? "",
-  // },
-  createdAt: {
-    type: "datetime",
+  productIngredients: {
+    type: "object",
     isArray: false,
-    isRequired: true,
-    isSortable: true,
+    isRequired: false,
+    isSortable: false,
     isSearchable: false,
-    formatter: (d) =>
-      getDateAndTimeInGermanFromAWSDateTimeFormat(d.createdAt) + " Uhr",
+    formatter: (d) => JSON.stringify(d.productIngredients ?? {}),
   },
-  updatedAt: {
-    type: "datetime",
+  productFeaturing: {
+    type: "string",
     isArray: false,
-    isRequired: true,
-    isSortable: true,
+    isRequired: false,
+    isSortable: false,
     isSearchable: false,
-    formatter: (d) =>
-      getDateAndTimeInGermanFromAWSDateTimeFormat(d.updatedAt) + " Uhr",
+    // formatter: (d) => String(d.productFeaturing),
+    formatter: () => "",
+  },
+  productFeatures: {
+    type: "object",
+    isArray: true,
+    isRequired: false,
+    isSortable: false,
+    isSearchable: false,
+    formatter: () => "",
   },
 }
 

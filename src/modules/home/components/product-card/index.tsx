@@ -1,26 +1,45 @@
-import type { MockProduct } from "@/fixtures/mockProducts";
-import { cn } from "@/utils/style";
+import { cn } from "@/utils/style"
 
-export type Product = MockProduct;
+export type ProductFeatureBadge = {
+  icon: string
+  alt: string
+  className: string
+}
+
+export type ProductFeaturingBadge = {
+  label?: string
+  className?: string
+}
+
+export type Product = {
+  id: string
+  productBrand: string
+  productName: string
+  productVolume: string
+  productPrice: string
+  productPicture: string
+  featuring?: ProductFeaturingBadge
+  productFeatures: ProductFeatureBadge[]
+}
 
 type ProductCardProps = {
-  product: Product;
-  currentAmount: number;
-  onDecreaseAmount: (productId: string, decrement: number) => void;
-  onIncreaseAmount: (productId: string, increment: number) => void;
+  product: Product
+  currentAmount: number
+  onDecreaseAmount: (productId: string, decrement: number) => void
+  onIncreaseAmount: (productId: string, increment: number) => void
   onInputChange: (
     e: React.ChangeEvent<HTMLInputElement>,
-    productId: string,
-  ) => void;
+    productId: string
+  ) => void
   onInputFocus: (
     e: React.FocusEvent<HTMLInputElement>,
-    currentAmount: number,
-  ) => void;
+    currentAmount: number
+  ) => void
   onInputBlur: (
     e: React.FocusEvent<HTMLInputElement>,
-    productId: string,
-  ) => void;
-};
+    productId: string
+  ) => void
+}
 
 export default function ProductCard({
   product,
@@ -33,14 +52,14 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div
-      className="group relative overflow-hidden bg-secondary/5 rounded-sm hover:scale-101 duration-150 shadow-lg"
+      className="group relative overflow-hidden rounded-sm bg-secondary/5 shadow-lg duration-150 hover:scale-101"
       style={{ height: "100%" }}
     >
       {product.featuring?.label ? (
         <div
           className={cn(
-            "absolute top-0 right-0 text-white p-2 rounded-tr-md rounded-bl-md z-10",
-            product.featuring.className ?? "bg-red-500",
+            "absolute top-0 right-0 z-10 rounded-tr-md rounded-bl-md p-2 text-white",
+            product.featuring.className ?? "bg-red-500"
           )}
         >
           {product.featuring.label}
@@ -48,16 +67,16 @@ export default function ProductCard({
       ) : null}
 
       {/* Icons */}
-      <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+      <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
         {product.productFeatures.map((feature) => (
           <div
             key={`${product.id}-${feature.alt}`}
             className={cn(
               "flex items-center justify-center rounded-full p-2",
-              feature.className,
+              feature.className
             )}
           >
-            <img src={feature.icon} alt={feature.alt} className="w-6 h-6" />
+            <img src={feature.icon} alt={feature.alt} className="h-6 w-6" />
           </div>
         ))}
       </div>
@@ -75,7 +94,7 @@ export default function ProductCard({
           <div className="pointer-events-none absolute bottom-4 left-1/2 z-0 h-12 w-72 -translate-x-[105%] rounded-full bg-linear-to-l from-black/35 via-black/18 to-transparent blur-2xl" />
           <div className="pointer-events-none absolute bottom-6 left-1/2 z-0 h-5 w-36 -translate-x-1/2 rounded-full bg-black/12 blur-md" />
           <img
-            className="relative z-10 h-full w-full p-8 object-contain object-center rounded-tl-md rounded-tr-md"
+            className="relative z-10 h-full w-full rounded-tl-md rounded-tr-md object-contain object-center p-8"
             src={product.productPicture}
             alt={product.productName}
           />
@@ -94,7 +113,7 @@ export default function ProductCard({
               </div>
             </div>
             <div
-              className="whitespace-nowrap text-2xl font-bold opacity-80"
+              className="text-2xl font-bold whitespace-nowrap opacity-80"
               // style={{ color: globalSecondaryColor }}
             >
               {product.productPrice}
@@ -102,15 +121,15 @@ export default function ProductCard({
           </div>
         </div>
 
-        <div className="flex h-12 items-center justify-center border-t-2 rounded-b-md">
+        <div className="flex h-12 items-center justify-center rounded-b-md border-t-2">
           <div
-            className="font-bold w-full grid grid-cols-3 h-full"
+            className="grid h-full w-full grid-cols-3 font-bold"
             // style={{ color: globalSecondaryColor }}
           >
-            <div className="grid grid-cols-2 h-full text-white">
+            <div className="grid h-full grid-cols-2 text-white">
               <button
                 className={cn(
-                  "flex items-center justify-center h-full rounded-bl-md hover:opacity-80 active:opacity-50 bg-primary",
+                  "flex h-full items-center justify-center rounded-bl-md bg-primary hover:opacity-80 active:opacity-50"
                   // buttonPrimaryColor,
                 )}
                 onClick={() => onDecreaseAmount(product.id, 10)}
@@ -119,7 +138,7 @@ export default function ProductCard({
               </button>
               <button
                 className={cn(
-                  "flex items-center justify-center h-full opacity-50 hover:opacity-70 active:opacity-50 bg-primary",
+                  "flex h-full items-center justify-center bg-primary opacity-50 hover:opacity-70 active:opacity-50"
                   // buttonPrimaryColor,
                 )}
                 onClick={() => onDecreaseAmount(product.id, 1)}
@@ -128,13 +147,13 @@ export default function ProductCard({
               </button>
             </div>
 
-            <div className="flex items-center justify-center h-full">
+            <div className="flex h-full items-center justify-center">
               <input
                 type="number"
                 name="amount"
                 id="amount"
                 className={cn(
-                  "h-full w-full text-center text-base sm:text-lg border border-input/70 bg-input/10 text-foreground shadow-xs outline-none transition-[color,box-shadow] hover:border-input hover:bg-input/30 focus-visible:border-input focus-visible:ring-input/50 focus-visible:ring-[3px] [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+                  "h-full w-full [appearance:textfield] border border-input/70 bg-input/10 text-center text-base text-foreground shadow-xs transition-[color,box-shadow] outline-none hover:border-input hover:bg-input/30 focus-visible:border-input focus-visible:ring-[3px] focus-visible:ring-input/50 sm:text-lg [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 )}
                 value={currentAmount}
                 onChange={(e) => onInputChange(e, product.id)}
@@ -143,10 +162,10 @@ export default function ProductCard({
               />
             </div>
 
-            <div className="grid grid-cols-2 h-full text-white">
+            <div className="grid h-full grid-cols-2 text-white">
               <button
                 className={cn(
-                  "flex items-center justify-center h-full opacity-50 hover:opacity-70 active:opacity-50 bg-primary",
+                  "flex h-full items-center justify-center bg-primary opacity-50 hover:opacity-70 active:opacity-50"
                   // buttonPrimaryColor,
                 )}
                 onClick={() => onIncreaseAmount(product.id, 1)}
@@ -155,7 +174,7 @@ export default function ProductCard({
               </button>
               <button
                 className={cn(
-                  "flex items-center justify-center h-full rounded-br-md hover:opacity-80 active:opacity-50 bg-primary",
+                  "flex h-full items-center justify-center rounded-br-md bg-primary hover:opacity-80 active:opacity-50"
                   // buttonPrimaryColor,
                 )}
                 onClick={() => onIncreaseAmount(product.id, 10)}
@@ -167,5 +186,5 @@ export default function ProductCard({
         </div>
       </div>
     </div>
-  );
+  )
 }

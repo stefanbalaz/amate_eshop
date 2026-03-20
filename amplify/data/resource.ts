@@ -1,12 +1,49 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend"
 
-/*== STEP 1 ===============================================================
-The section below creates a Todo database table with a "content" field. Try
-adding a new "isDone" field as a boolean. The authorization rule below
-specifies that any unauthenticated user can "create", "read", "update", 
-and "delete" any "Todo" records.
-=========================================================================*/
 const schema = a.schema({
+  // ------------------------
+  // FEATURING (shared badge)
+  // ------------------------
+  ProductFeaturing: a
+    .model({
+      productFeaturingLabel: a.string().required(),
+      productFeaturingClassName: a.string().required(),
+      productFeaturingDescription: a.string(),
+      productFeaturingIsActive: a.boolean().required(),
+
+      // 1 Featuring -> many Products
+      products: a.hasMany("Product", "productFeaturingID"),
+    })
+    .authorization((allow) => [allow.guest()]),
+
+  // ------------------------
+  // PRODUCT FEATURE (list items)
+  // ------------------------
+  ProductFeature: a
+    .model({
+      productFeatureIcon: a.string().required(),
+      productFeatureLabel: a.string().required(),
+      productFeatureClassName: a.string().required(),
+      productFeatureDescription: a.string(),
+      productFeatureIsActive: a.boolean().required(),
+
+      // belongs to Product
+      // productID: a.id().required(),
+      // product: a.belongsTo("Product", "productID"),
+      products: a.hasMany("ProductFeatureAssignment", "featureID"),
+    })
+    .authorization((allow) => [allow.guest()]),
+
+  ProductFeatureAssignment: a
+    .model({
+      productID: a.id().required(),
+      featureID: a.id().required(),
+
+      product: a.belongsTo("Product", "productID"),
+      feature: a.belongsTo("ProductFeature", "featureID"),
+    })
+    .authorization((allow) => [allow.guest()]),
+
   // ------------------------
   // PRODUCT
   // ------------------------
@@ -14,12 +51,30 @@ const schema = a.schema({
     .model({
       productBrand: a.string().required(),
       productName: a.string().required(),
-      productVolume: a.string().required(),
-      productPrice: a.string().required(),
+      productVolumeMilliliter: a.integer().required(),
+      productPriceCents: a.integer().required(),
       productPicture: a.string().required(),
-      color: a.string().required(),
-      featuring: a.json(),
-      // productFeatures: a.json().required(),
+      productColorClassName: a.string().required(),
+      productShortDescription: a.string(),
+      productDescription: a.string(),
+      productLegalDisclaimer: a.string(),
+      productSorting: a.integer().required(),
+      productNutritionalInfo: a.json(),
+      productIngredients: a.json(),
+      productIsActive: a.boolean().required(),
+      // color: a.string().required(),
+
+      // ------------------------
+      // Featuring (optional 1:many)
+      // ------------------------
+      productFeaturingID: a.id(), // optional FK
+      productFeaturing: a.belongsTo("ProductFeaturing", "productFeaturingID"),
+
+      // ------------------------
+      // ProductFeatures (1:n)
+      // ------------------------
+      // productFeatures: a.hasMany("ProductFeature", "productID"),
+      productFeatures: a.hasMany("ProductFeatureAssignment", "productID"),
     })
     .authorization((allow) => [allow.guest()]),
 
@@ -29,7 +84,6 @@ const schema = a.schema({
   Order: a
     .model({
       orderNumber: a.string().required(),
-
       status: a.string(),
       paymentMethod: a.string(),
       paymentStatus: a.string(),
@@ -84,32 +138,3 @@ export const data = defineData({
     defaultAuthorizationMode: "identityPool",
   },
 })
-
-/*== STEP 2 ===============================================================
-Go to your frontend source code. From your client-side code, generate a
-Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
-WORK IN THE FRONTEND CODE FILE.)
-
-Using JavaScript or Next.js React Server Components, Middleware, Server 
-Actions or Pages Router? Review how to generate Data clients for those use
-cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
-=========================================================================*/
-
-/*
-"use client"
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
-
-const client = generateClient<Schema>() // use this Data client for CRUDL requests
-*/
-
-/*== STEP 3 ===============================================================
-Fetch records from the database and use them in your frontend component.
-(THIS SNIPPET WILL ONLY WORK IN THE FRONTEND CODE FILE.)
-=========================================================================*/
-
-/* For example, in a React component, you can use this snippet in your
-  function's RETURN statement */
-// const { data: todos } = await client.models.Todo.list()
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>

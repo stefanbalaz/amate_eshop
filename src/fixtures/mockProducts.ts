@@ -1,37 +1,37 @@
-import classicProductImage from "@/assets/images/products/klasik.png";
-import gingerProductImage from "@/assets/images/products/ginger.png";
-import hempProductImage from "@/assets/images/products/hemp.png";
-import melonProductImage from "@/assets/images/products/melon.png";
-import mintProductImage from "@/assets/images/products/mint.png";
-import zeroProductImage from "@/assets/images/products/zero.png";
-import cucumberProductImage from "@/assets/images/products/cucumber.png";
-import { glutenFreeIcon, lactoseFreeIcon, veganIcon } from "@/assets";
+import classicProductImage from "@/assets/images/products/classic.png"
+import gingerProductImage from "@/assets/images/products/ginger.png"
+import hempProductImage from "@/assets/images/products/hemp.png"
+import melonProductImage from "@/assets/images/products/melon.png"
+import mintProductImage from "@/assets/images/products/mint.png"
+import zeroProductImage from "@/assets/images/products/zero.png"
+import cucumberProductImage from "@/assets/images/products/cucumber.png"
+import { glutenFreeIcon, lactoseFreeIcon, veganIcon } from "@/assets"
 
 export type ProductFeaturing = {
-  label?: string;
-  className?: string;
-};
+  label?: string
+  className?: string
+}
 
 export type ProductFeatureBadge = {
-  icon: string;
-  alt: string;
-  className: string;
-};
+  icon: string
+  alt: string
+  className: string
+}
 
 export type MockProduct = {
-  id: string;
-  productBrand: string;
-  productName: string;
-  productVolume: string;
-  productPrice: string;
-  productPicture: string;
-  color: string;
-  featuring?: ProductFeaturing;
-  productFeatures: ProductFeatureBadge[];
-};
+  id: string
+  productBrand: string
+  productName: string
+  productVolume: string
+  productPrice: string
+  productPicture: string
+  color: string
+  featuring?: ProductFeaturing
+  productFeatures: ProductFeatureBadge[]
+}
 
-export const SHIPPING_FEE = 4.9;
-export const TAX_RATE = 0.23;
+export const SHIPPING_FEE = 4.9
+export const TAX_RATE = 0.23
 
 const defaultProductFeatures: ProductFeatureBadge[] = [
   {
@@ -49,7 +49,7 @@ const defaultProductFeatures: ProductFeatureBadge[] = [
     alt: "Gluten Free",
     className: "bg-blue-200",
   },
-];
+]
 
 export const mockProducts: MockProduct[] = [
   {
@@ -134,4 +134,4 @@ export const mockProducts: MockProduct[] = [
     color: "#7a8c3e",
     productFeatures: defaultProductFeatures,
   },
-];
+]
