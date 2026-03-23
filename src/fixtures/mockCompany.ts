@@ -1,64 +1,64 @@
-import { amateLogoColourful, amateLogoWhite } from "@/assets";
+import { amateLogoColourful, amateLogoWhite } from "@/assets"
 
 export type MockFooterDescription = {
-  primaryText: string;
-  secondaryText?: string;
-  showHeartIcon?: boolean;
-};
+  primaryText: string
+  secondaryText?: string
+  showHeartIcon?: boolean
+}
 
 export type MockHeaderData = {
-  logoSrc: string;
-  logoAlt: string;
-  homeTo: string;
+  logoSrc: string
+  logoAlt: string
+  homeTo: string
   infoLink: {
-    href: string;
-    label: string;
-  };
+    href: string
+    label: string
+  }
   phone: {
-    display: string;
-    href: string;
-  };
-};
+    display: string
+    href: string
+  }
+}
 
 export type MockSocialLink = {
-  id: string;
-  platform: "instagram" | "facebook";
-  href: string;
-  label: string;
-};
+  id: string
+  platform: "instagram" | "facebook"
+  href: string
+  label: string
+}
 
 export type MockContactInfo = {
-  email: string;
-  phone: string;
-  addressLines: string[];
-};
+  email: string
+  phone: string
+  addressLines: string[]
+}
 
 export type MockLegalLink = {
-  id: string;
-  label: string;
-  to: string;
-};
+  id: string
+  label: string
+  to: string
+}
 
 export type MockCompanyData = {
-  header: MockHeaderData;
-  brandName: string;
-  logoSrc: string;
-  logoAlt: string;
-  description: MockFooterDescription;
+  header: MockHeaderData
+  brandName: string
+  logoSrc: string
+  logoAlt: string
+  description: MockFooterDescription
   sectionTitles: {
-    contact: string;
-    legal: string;
-  };
-  socialLinks: MockSocialLink[];
-  contact: MockContactInfo;
-  legalLinks: MockLegalLink[];
+    contact: string
+    legal: string
+  }
+  socialLinks: MockSocialLink[]
+  contact: MockContactInfo
+  legalLinks: MockLegalLink[]
   bottomBar: {
-    copyright: string;
-    creditsLabel: string;
-    creditsText: string;
-    creditsHref: string;
-  };
-};
+    copyright: string
+    creditsLabel: string
+    creditsText: string
+    creditsHref: string
+  }
+}
 
 export const mockCompanyData: MockCompanyData = {
   header: {
@@ -78,7 +78,7 @@ export const mockCompanyData: MockCompanyData = {
   logoSrc: amateLogoWhite,
   logoAlt: "AMATE Logo",
   description: {
-    primaryText: "AMATE je značka 3-Logy spol. s r.o.",
+    primaryText: "AMATE je značka 3-Logy spol. s r. o.",
     secondaryText: "Made with love in Slovakia",
     showHeartIcon: true,
   },
@@ -118,9 +118,9 @@ export const mockCompanyData: MockCompanyData = {
     },
   ],
   bottomBar: {
-    copyright: `Copyright ${new Date().getFullYear()} 3-Logy spol. s r.o.`,
+    copyright: `Copyright ${new Date().getFullYear()} 3-Logy spol. s r. o.`,
     creditsLabel: "Webshop & Design:",
     creditsText: "Štefan Baláž",
     creditsHref: "https://www.stefanbalaz.com",
   },
-};
+}

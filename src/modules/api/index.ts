@@ -28,17 +28,6 @@ export const getProductsList = async (
     console.warn("Product.list GraphQL errors:", errors)
   }
 
-  const page = data ?? []
-  if (import.meta.env.DEV && page.length > 0) {
-    const first = page[0]
-    console.log("[Product.list] sample row keys:", Object.keys(first ?? {}))
-    console.log(
-      "[Product.list] sample productFeaturing / productFeatures:",
-      first?.productFeaturing,
-      first?.productFeatures
-    )
-  }
-
   // const raw = data ?? []
   // const items = raw.filter(
   //   (item): item is NonNullable<typeof item> => item != null
@@ -55,7 +44,7 @@ export const getProductsList = async (
   //   nextToken: nextToken ?? null,
   // })
 
-  const productList = [...prevProductList, ...page]
+  const productList = [...prevProductList, ...data]
 
   if (nextToken) {
     return getProductsList(nextToken, productList)

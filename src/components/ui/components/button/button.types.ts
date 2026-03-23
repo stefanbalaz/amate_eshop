@@ -2,6 +2,7 @@ export const ButtonSize = {
   DEFAULT: "default",
   SM: "sm",
   LG: "lg",
-} as const;
+  XL: "xl",
+} as const
 
-export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
+export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize]

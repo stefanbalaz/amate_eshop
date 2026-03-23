@@ -1,4 +1,6 @@
-export { default as Hero } from "./hero";
-export { default as ProductCard } from "./product-card";
-export type { Product } from "./product-card";
-export { default as ProductGrid } from "./product-grid";
+export { default as Hero } from "./hero"
+export { default as ProductCard } from "./product-card"
+export type { Product } from "./product-card"
+export { default as ProductGrid } from "./product-grid"
+export { default as WhatIsMate } from "./what-is-mate"
+export { default as OurStory } from "./our-story"

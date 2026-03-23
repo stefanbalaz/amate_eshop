@@ -14,7 +14,8 @@ export type ProductFeaturing = {
 
 export type ProductFeatureBadge = {
   icon: string
-  alt: string
+  label: string
+  description?: string
   className: string
 }
 
@@ -36,17 +37,20 @@ export const TAX_RATE = 0.23
 const defaultProductFeatures: ProductFeatureBadge[] = [
   {
     icon: veganIcon,
-    alt: "Vegan",
+    label: "Vegan",
+    description: "Bez živočíšnych zložiek.",
     className: "bg-green-200",
   },
   {
     icon: lactoseFreeIcon,
-    alt: "Lactose Free",
+    label: "Bez laktózy",
+    description: "Vhodné pri intolerancii laktózy.",
     className: "bg-yellow-200",
   },
   {
     icon: glutenFreeIcon,
-    alt: "Gluten Free",
+    label: "Bez lepku",
+    description: "Vhodné pri celiakii alebo bezlepkovej diéte.",
     className: "bg-blue-200",
   },
 ]

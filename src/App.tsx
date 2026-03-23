@@ -1,8 +1,8 @@
-import { Route, Routes } from "react-router-dom";
-import "./index.css";
-import { CheckoutPage, ContactPage, Home } from "@/modules";
-import { Footer, Header } from "./components";
-import { AppDrawer } from "@/features/drawer";
+import { Route, Routes } from "react-router-dom"
+import "./index.css"
+import { CheckoutPage, ContactPage, Home, ProductDetailPage } from "@/modules"
+import { Footer, Header } from "./components"
+import { AppDrawer } from "@/features/drawer"
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<div>Not found</div>} />
@@ -21,7 +22,7 @@ function App() {
 
       <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

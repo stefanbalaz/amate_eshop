@@ -11,6 +11,8 @@ import {
 } from "@/assets/images/products"
 import type { Product as ApiProduct } from "@/types/product.types"
 import ProductCard, { type Product } from "../product-card"
+import { Button } from "@/components"
+import { useNavigate } from "react-router-dom"
 
 type ProductGridProps = {
   fetchedProducts?: ApiProduct[]
@@ -128,7 +130,8 @@ const mapFetchedProductToCard = (product: ApiProduct): Product => ({
           feature.productFeatureLabel,
           feature.productFeatureClassName
         ),
-      alt: feature.productFeatureLabel,
+      label: feature.productFeatureLabel,
+      description: feature.productFeatureDescription ?? undefined,
       className:
         normalizeBadgeClassName(feature.productFeatureClassName) ??
         "bg-green-200",
@@ -147,6 +150,8 @@ const mapFetchedProductToCard = (product: ApiProduct): Product => ({
 export default function ProductGrid({
   fetchedProducts = [],
 }: ProductGridProps) {
+  const navigate = useNavigate()
+
   const {
     getCurrentAmount,
     handleDecreaseAmount,
@@ -157,27 +162,51 @@ export default function ProductGrid({
   } = useCart()
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
-      <div
-        id="products"
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {fetchedProducts.map((product) => {
-          const cardProduct = mapFetchedProductToCard(product)
+    <section className="py-20">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <p
+            id="products-heading"
+            className="mb-2 scroll-mt-24 text-sm font-semibold tracking-[0.3em] text-secondary uppercase"
+          >
+            Naše produkty
+          </p>
+          <h2 className="text-4xl uppercase md:text-5xl">
+            OBJAV AMATE PRÍCHUTE
+          </h2>
+        </div>
 
-          return (
-            <ProductCard
-              key={cardProduct.id}
-              product={cardProduct}
-              currentAmount={getCurrentAmount(cardProduct.id)}
-              onDecreaseAmount={handleDecreaseAmount}
-              onIncreaseAmount={handleIncreaseAmount}
-              onInputChange={handleInputChange}
-              onInputFocus={handleInputFocus}
-              onInputBlur={handleInputBlur}
-            />
-          )
-        })}
+        <div
+          id="products"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {fetchedProducts.map((product) => {
+            const cardProduct = mapFetchedProductToCard(product)
+
+            return (
+              <ProductCard
+                key={cardProduct.id}
+                product={cardProduct}
+                onCardClick={(productId) => {
+                  navigate(`/products/${productId}#top`)
+                }}
+                currentAmount={getCurrentAmount(cardProduct.id)}
+                onDecreaseAmount={handleDecreaseAmount}
+                onIncreaseAmount={handleIncreaseAmount}
+                onInputChange={handleInputChange}
+                onInputFocus={handleInputFocus}
+                onInputBlur={handleInputBlur}
+              />
+            )
+          })}
+        </div>
+        <Button
+          className="mx-auto mt-12 block"
+          variant="secondary"
+          size="xl"
+          label="Prejsť do košíka"
+          onClick={() => navigate("/checkout", { replace: true })}
+        />
       </div>
     </section>
   )

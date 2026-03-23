@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
-import { Phone, ShoppingBasket } from "lucide-react";
-import { mockCompanyData } from "@/fixtures/mockCompany";
-import { useCart } from "@/context/use-cart";
-import { useDrawer } from "@/features/drawer";
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Phone, ShoppingBasket } from "lucide-react"
+import { mockCompanyData } from "@/fixtures/mockCompany"
+import { useCart } from "@/context/use-cart"
+import { useDrawer } from "@/features/drawer"
 
 export function Header() {
-  const { header } = mockCompanyData;
-  const { totalSelectedBottles } = useCart();
-  const { openDrawer, closeDrawer } = useDrawer();
+  const { header } = mockCompanyData
+  const { totalSelectedBottles } = useCart()
+  const { openDrawer, closeDrawer } = useDrawer()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const openCompanyInfoDrawer = () => {
     openDrawer({
@@ -29,20 +31,31 @@ export function Header() {
           </div>
         </div>
       ),
-    });
-  };
+    })
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <div className="mx-auto flex h-auto w-full max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link to={header.homeTo} className="flex items-center">
+        <button
+          type="button"
+          className="m-0 flex cursor-pointer items-center border-none bg-transparent p-0"
+          aria-label="Go to homepage"
+          onClick={() => {
+            if (location.pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            } else {
+              navigate("/")
+            }
+          }}
+        >
           <img
             src={header.logoSrc}
             alt={header.logoAlt}
             className="h-20 w-auto"
           />
-        </Link>
+        </button>
 
         {/* Right side nav */}
         <nav className="flex items-center gap-6">
@@ -70,12 +83,12 @@ export function Header() {
             aria-label="Go to checkout"
           >
             <ShoppingBasket className="h-10 w-10" />
-            <span className="absolute -right-2 -top-2 inline-flex min-h-7 min-w-7 items-center justify-center rounded-full bg-emerald-600 px-1 text-[14px] font-semibold leading-none text-white">
+            <span className="absolute -top-2 -right-2 inline-flex min-h-7 min-w-7 items-center justify-center rounded-full bg-emerald-600 px-1 text-[14px] leading-none font-semibold text-white">
               {totalSelectedBottles}
             </span>
           </Link>
         </nav>
       </div>
     </header>
-  );
+  )
 }

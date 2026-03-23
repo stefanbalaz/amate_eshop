@@ -23,6 +23,9 @@ export type { BadgeProps, BadgeSize } from "./badge";
 export { Tooltip } from "./tooltip";
 export type { TooltipProps } from "./tooltip";
 
+export { HoverCard } from "./hover-card";
+export type { HoverCardContentOptions, HoverCardProps } from "./hover-card";
+
 // Inputs
 export { AutocompleteField } from "./inputs/autocomplete-field";
 export type {

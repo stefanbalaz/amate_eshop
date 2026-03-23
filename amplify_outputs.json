@@ -410,14 +410,14 @@
             "productDescription": {
               "name": "productDescription",
               "isArray": false,
-              "type": "String",
+              "type": "AWSJSON",
               "isRequired": false,
               "attributes": []
             },
             "productLegalDisclaimer": {
               "name": "productLegalDisclaimer",
               "isArray": false,
-              "type": "String",
+              "type": "AWSJSON",
               "isRequired": false,
               "attributes": []
             },
