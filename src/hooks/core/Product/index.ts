@@ -1,5 +1,5 @@
 // export { default as useProductCreate } from "./use-product-create"
 export { default as useProductDelete } from "./use-product-delete"
-export { default as useProductList } from "./use-products-list"
+export { default as useProductsList } from "./use-products-list"
 // export { default as useProductRead } from "./use-product-read"
 // export { default as useProductUpdate } from "./use-product-update"
