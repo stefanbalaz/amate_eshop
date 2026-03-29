@@ -1,5 +1,14 @@
 import { useCart } from "@/context/use-cart"
 import { Separator } from "../../../../components/ui/primitives"
+import {
+  ShieldCheckIcon,
+  LockClosedIcon,
+  TruckIcon,
+} from "@heroicons/react/24/outline"
+import { BottleIcon } from "../icons"
+import type { CartFormApi } from "@/hooks/use-cart-form"
+import { cn } from "@/utils/style"
+import useProductsList from "@/hooks/core/product/use-products-list"
 
 const tailwindColorToHex: Record<string, string> = {
   "slate-50": "#f8fafc",
@@ -162,15 +171,6 @@ function getHexFromColorClassName(
   if (!match) return "#6b7280"
   return tailwindColorToHex[match[1]] ?? "#6b7280"
 }
-import {
-  ShieldCheckIcon,
-  LockClosedIcon,
-  TruckIcon,
-} from "@heroicons/react/24/outline"
-import { BottleIcon } from "../icons"
-import type { CartFormApi } from "@/hooks/use-cart-form"
-import { cn } from "@/utils/style"
-import useProductsList from "@/hooks/core/product/use-products-list"
 
 const SHIPPING_FEE = 4.9
 const TAX_RATE = 0.23
