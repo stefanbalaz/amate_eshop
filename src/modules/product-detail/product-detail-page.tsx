@@ -10,7 +10,6 @@ import {
   zeroBottle,
 } from "@/assets/images/products"
 import { useCart } from "@/context/use-cart"
-import useProductsList from "@/hooks/core/product/use-products-list"
 import { useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ProductDetailSections } from "./product-detail-sections.tsx"
