@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { mockCompanyData } from "@/fixtures/mockCompany";
+import { CookieConsentLink } from "@/modules/cookie-consent";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -205,6 +206,9 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <CookieConsentLink className="text-left text-sm text-footer-muted transition-colors hover:text-footer-foreground" />
+              </li>
             </ul>
           </div>
         </div>

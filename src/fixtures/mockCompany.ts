@@ -1,3 +1,5 @@
+// Add Google Analytics Pixel ID
+
 import { amateLogoColourful, amateLogoWhite } from "@/assets"
 
 export type MockFooterDescription = {
@@ -17,6 +19,10 @@ export type MockHeaderData = {
   phone: {
     display: string
     href: string
+  }
+  eshop: {
+    href: string
+    label: string
   }
 }
 
@@ -45,6 +51,8 @@ export type MockCompanyData = {
   logoSrc: string
   logoAlt: string
   description: MockFooterDescription
+  /** Label for opening the cookie consent / preferences UI (footer, etc.). */
+  cookieSettingsLabel: string
   sectionTitles: {
     contact: string
     legal: string
@@ -73,10 +81,15 @@ export const mockCompanyData: MockCompanyData = {
       display: "+421 (0) 911 561 885",
       href: "tel:+421911561885",
     },
+    eshop: {
+      href: "/checkout",
+      label: "eShop",
+    },
   },
   brandName: "AMATE",
   logoSrc: amateLogoWhite,
   logoAlt: "AMATE Logo",
+  cookieSettingsLabel: "Nastavenie cookies",
   description: {
     primaryText: "AMATE je značka 3-Logy spol. s r. o.",
     secondaryText: "Made with love in Slovakia",
@@ -108,13 +121,23 @@ export const mockCompanyData: MockCompanyData = {
   legalLinks: [
     {
       id: "imprint",
-      label: "[Imprint / Privacy]",
-      to: "/placeholder-imprint",
+      label: "Impressum",
+      to: "/impressum",
     },
     {
       id: "terms",
-      label: "[Terms & Conditions]",
-      to: "/placeholder-terms",
+      label: "Obchodné podmienky",
+      to: "/terms-and-conditions",
+    },
+    {
+      id: "privacy",
+      label: "Ochrana osobných údajov",
+      to: "/privacy-policy",
+    },
+    {
+      id: "return",
+      label: "Odstúpenie od zmluvy",
+      to: "/return-policy",
     },
   ],
   bottomBar: {

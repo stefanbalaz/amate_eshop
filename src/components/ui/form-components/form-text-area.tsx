@@ -94,6 +94,7 @@ export default function FormTextArea({
         </Text>
       )}
       <Textarea
+        name={field.name}
         id={id}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}

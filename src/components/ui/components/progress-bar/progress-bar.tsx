@@ -1,26 +1,26 @@
-import * as React from "react";
-import { Progress } from "@/components/ui/shadcn/progress";
-import { Field, FieldLabel } from "@/components/ui/shadcn/field";
-import { cn } from "@/utils/style";
+import * as React from "react"
+import { Progress } from "@/components/ui/shadcn/progress"
+import { Field, FieldLabel } from "@/components/ui/shadcn/field"
+import { cn } from "@/utils/style"
 
-import { ProgressBarSize } from "./types";
+import { ProgressBarSize } from "./types"
 
-export { ProgressBarSize } from "./types";
+export { ProgressBarSize } from "./types"
 
-export type ProgressBarType = "linear" | "circular";
+export type ProgressBarType = "linear" | "circular"
 
 export type ProgressBarProps = {
-  progressValue: number;
-  itemsCurrent: number;
-  itemsTotal: number;
-  type?: ProgressBarType;
-  label?: string;
-  size?: ProgressBarSize;
-  className?: string;
-};
+  progressValue: number
+  itemsCurrent: number
+  itemsTotal: number
+  type?: ProgressBarType
+  label?: string
+  size?: ProgressBarSize
+  className?: string
+}
 
 const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
+  Math.min(Math.max(value, min), max)
 
 const SIZE_CONFIG = {
   [ProgressBarSize.SM]: {
@@ -38,10 +38,10 @@ const SIZE_CONFIG = {
     strokeWidthPx: 5,
     linearBarWidthClassName: "w-56",
   },
-} as const;
+} as const
 
 const formatItemsCount = (current: number, total: number) =>
-  total > 0 ? `${current}/${total}` : "—";
+  total > 0 ? `${current}/${total}` : "—"
 
 export const ProgressBar = ({
   progressValue,
@@ -52,11 +52,11 @@ export const ProgressBar = ({
   size = ProgressBarSize.DEFAULT,
   className,
 }: ProgressBarProps) => {
-  const progress = clamp(progressValue, 0, 100);
-  const sizeConfig = SIZE_CONFIG[size];
-  const labelId = React.useId();
-  const hasLabel = typeof label === "string" && label.length > 0;
-  const itemsCount = formatItemsCount(itemsCurrent, itemsTotal);
+  const progress = clamp(progressValue, 0, 100)
+  const sizeConfig = SIZE_CONFIG[size]
+  const labelId = React.useId()
+  const hasLabel = typeof label === "string" && label.length > 0
+  const itemsCount = formatItemsCount(itemsCurrent, itemsTotal)
 
   if (type === "linear") {
     if (hasLabel) {
@@ -82,13 +82,13 @@ export const ProgressBar = ({
             aria-labelledby={labelId}
           />
         </Field>
-      );
+      )
     }
 
     return (
       <div className={cn("inline-flex items-center gap-5", className)}>
         <div
-          className="tabular-nums text-sm text-muted-foreground"
+          className="text-sm text-muted-foreground tabular-nums"
           aria-hidden="true"
         >
           {itemsCount}
@@ -105,12 +105,12 @@ export const ProgressBar = ({
           </span>
         </div>
       </div>
-    );
+    )
   }
 
-  const radius = (sizeConfig.circularPx - sizeConfig.strokeWidthPx) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const dashOffset = circumference * (1 - progress / 100);
+  const radius = (sizeConfig.circularPx - sizeConfig.strokeWidthPx) / 2
+  const circumference = 2 * Math.PI * radius
+  const dashOffset = circumference * (1 - progress / 100)
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -140,7 +140,7 @@ export const ProgressBar = ({
         aria-valuenow={Math.round(progress)}
         aria-valuetext={`${Math.round(progress)}%`}
       >
-        <div className="tabular-nums text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground tabular-nums">
           {itemsCount}
         </div>
 
@@ -189,5 +189,5 @@ export const ProgressBar = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

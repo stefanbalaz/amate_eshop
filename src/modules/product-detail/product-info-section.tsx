@@ -2,6 +2,10 @@ import { HoverCard } from "@/components"
 import { cn } from "@/utils/style"
 import { resolveProductFeatureHoverPanelClassName } from "../home/components/product-card/product-feature-hover-classes"
 import { TAX_RATE } from "@/fixtures"
+import { Info } from "lucide-react"
+import RecyclingCode40 from "@/assets/icons/recycling/recycling-code-40.svg?react"
+import RecyclingCode70 from "@/assets/icons/recycling/recycling-code-70.svg?react"
+import RecyclingTidyman from "@/assets/icons/recycling/recycling-tidyman.svg?react"
 
 type ProductFeatureBadge = {
   icon: string
@@ -54,14 +58,17 @@ export default function ProductInfoSection({
   })
 
   return (
-    <div className="flex h-full flex-col gap-6">
+    // <div className="flex h-full flex-col justify-between gap-8 md:gap-12">
+    <div className="flex h-full flex-col justify-between">
       {/* Brand and Name */}
       <div>
         <p className="mb-2 text-sm font-semibold tracking-[0.3em] text-secondary uppercase">
           {productBrand}
         </p>
         <h1 className="text-4xl uppercase md:text-5xl">{productName}</h1>
-        <p className="mt-1 text-base text-muted-foreground">{productVolume}</p>
+        <p className="mt-1 text-xl font-semibold text-muted-foreground">
+          {productVolume}
+        </p>
       </div>
 
       {/* Description */}
@@ -71,14 +78,22 @@ export default function ProductInfoSection({
 
       {/* Price */}
       <div className="flex flex-col gap-y-1">
-        <div className="text-4xl font-bold text-foreground">
-          {productPrice}{" "}
-          <span className="text-base font-normal text-muted-foreground">
-            s DPH
-          </span>
+        <div className="flex items-center gap-2">
+          <div className="text-4xl font-bold text-foreground">
+            {productPrice}{" "}
+            <span className="text-base font-normal text-muted-foreground">
+              s DPH
+            </span>
+          </div>
+          <HoverCard
+            content={
+              <div className="text-sm text-muted-foreground">{`${netPriceFormatted} € bez ${(TAX_RATE * 100).toFixed(0)} % DPH`}</div>
+            }
+            contentClassName="w-auto"
+          >
+            <Info className="h-5 w-5 text-muted-foreground" />
+          </HoverCard>
         </div>
-
-        <div className="text-sm font-light text-muted-foreground">{`${netPriceFormatted} € bez ${(TAX_RATE * 100).toFixed(0)} % DPH`}</div>
       </div>
 
       {/* Features */}
@@ -125,8 +140,34 @@ export default function ProductInfoSection({
         ) : null}
       </div>
 
+      {/* Packaging */}
+      <div className="flex items-center gap-2 text-xl font-semibold text-muted-foreground">
+        <span>Nezálohovaný obal</span>
+        <HoverCard
+          content={
+            <div className="flex gap-4">
+              <RecyclingCode40
+                className="h-12 text-muted-foreground"
+                aria-hidden
+              />
+              <RecyclingCode70
+                className="h-12 text-muted-foreground"
+                aria-hidden
+              />
+              <RecyclingTidyman
+                className="h-11.5 text-muted-foreground"
+                aria-hidden
+              />
+            </div>
+          }
+          contentClassName="w-auto"
+        >
+          <Info className="h-5 w-5 text-muted-foreground" />
+        </HoverCard>
+      </div>
+
       {/* Amount Controls */}
-      <div className="mt-auto flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <label className="text-sm font-medium text-foreground">
           Pridať do košíka
         </label>

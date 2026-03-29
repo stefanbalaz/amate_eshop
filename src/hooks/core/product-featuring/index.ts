@@ -1,0 +1,5 @@
+// export { default as useProductCreate } from "./use-product-featuring-create"
+// export { default as useProductFeaturingDelete } from "./use-product-featuring-delete"
+export { default as useProductFeaturingList } from "./use-product-featurings-list"
+// export { default as useProductRead } from "./use-product-featuring-read"
+// export { default as useProductUpdate } from "./use-product-update"

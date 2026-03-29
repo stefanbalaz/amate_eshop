@@ -487,6 +487,22 @@
                 ]
               }
             },
+            "orderItems": {
+              "name": "orderItems",
+              "isArray": true,
+              "type": {
+                "model": "OrderItem"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "productId"
+                ]
+              }
+            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -506,6 +522,129 @@
           },
           "syncable": true,
           "pluralName": "Products",
+          "attributes": [
+            {
+              "type": "model",
+              "properties": {}
+            },
+            {
+              "type": "auth",
+              "properties": {
+                "rules": [
+                  {
+                    "allow": "public",
+                    "provider": "iam",
+                    "operations": [
+                      "create",
+                      "update",
+                      "delete",
+                      "read"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "primaryKeyInfo": {
+            "isCustomPrimaryKey": false,
+            "primaryKeyFieldName": "id",
+            "sortKeyFieldNames": []
+          }
+        },
+        "OrderItem": {
+          "name": "OrderItem",
+          "fields": {
+            "id": {
+              "name": "id",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "orderID": {
+              "name": "orderID",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "order": {
+              "name": "order",
+              "isArray": false,
+              "type": {
+                "model": "Order"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": [
+                  "orderID"
+                ]
+              }
+            },
+            "productId": {
+              "name": "productId",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "product": {
+              "name": "product",
+              "isArray": false,
+              "type": {
+                "model": "Product"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": [
+                  "productId"
+                ]
+              }
+            },
+            "quantity": {
+              "name": "quantity",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": true,
+              "attributes": []
+            },
+            "productName": {
+              "name": "productName",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "priceCents": {
+              "name": "priceCents",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": true,
+              "attributes": []
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            },
+            "updatedAt": {
+              "name": "updatedAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            }
+          },
+          "syncable": true,
+          "pluralName": "OrderItems",
           "attributes": [
             {
               "type": "model",
@@ -594,6 +733,13 @@
               "isRequired": true,
               "attributes": []
             },
+            "phone": {
+              "name": "phone",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
             "firstName": {
               "name": "firstName",
               "isArray": false,
@@ -611,14 +757,25 @@
             "deliveryAddress": {
               "name": "deliveryAddress",
               "isArray": false,
-              "type": "String",
+              "type": {
+                "nonModel": "Address"
+              },
               "isRequired": false,
               "attributes": []
             },
             "invoiceAddress": {
               "name": "invoiceAddress",
               "isArray": false,
-              "type": "String",
+              "type": {
+                "nonModel": "Address"
+              },
+              "isRequired": false,
+              "attributes": []
+            },
+            "isDifferentInvoice": {
+              "name": "isDifferentInvoice",
+              "isArray": false,
+              "type": "Boolean",
               "isRequired": false,
               "attributes": []
             },
@@ -636,6 +793,27 @@
               "isRequired": false,
               "attributes": []
             },
+            "companyRegistrationNumber": {
+              "name": "companyRegistrationNumber",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "taxIdentificationNumber": {
+              "name": "taxIdentificationNumber",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "vatNumber": {
+              "name": "vatNumber",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
             "orderNotes": {
               "name": "orderNotes",
               "isArray": false,
@@ -645,10 +823,19 @@
             },
             "items": {
               "name": "items",
-              "isArray": false,
-              "type": "AWSJSON",
-              "isRequired": true,
-              "attributes": []
+              "isArray": true,
+              "type": {
+                "model": "OrderItem"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "orderID"
+                ]
+              }
             },
             "createdAt": {
               "name": "createdAt",
@@ -858,7 +1045,48 @@
         }
       },
       "enums": {},
-      "nonModels": {}
+      "nonModels": {
+        "Address": {
+          "name": "Address",
+          "fields": {
+            "streetName": {
+              "name": "streetName",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "houseNumber": {
+              "name": "houseNumber",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "zip": {
+              "name": "zip",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "city": {
+              "name": "city",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "country": {
+              "name": "country",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            }
+          }
+        }
+      }
     }
   },
   "version": "1.4"

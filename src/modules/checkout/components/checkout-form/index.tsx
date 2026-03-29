@@ -16,6 +16,7 @@ import {
   DEFAULT_ORDER_NOTES_MAX_LENGTH,
 } from "../../schemas/checkout-form-schema"
 import { defaultValues } from "../default-values"
+import { useLegalCheckoutDrawer } from "@/features/legal"
 import { Landmark } from "lucide-react"
 import { PayPalIcon, VisaIcon } from "../icons"
 import { useRef, useState } from "react"
@@ -283,6 +284,7 @@ type CheckoutFormProps = {
 }
 
 export function CheckoutForm({ form }: CheckoutFormProps) {
+  const { openLegalDocument } = useLegalCheckoutDrawer()
   const orderNotesMaxCharacters = DEFAULT_ORDER_NOTES_MAX_LENGTH
   const orderNotesSchema = createOrderNotesSchema(orderNotesMaxCharacters)
 
@@ -849,22 +851,69 @@ export function CheckoutForm({ form }: CheckoutFormProps) {
             {(field) => (
               <field.FormCheckboxField
                 label={
-                  <span className="leading-relaxed font-normal text-muted-foreground">
+                  // <span className="leading-relaxed font-normal text-foreground">
+                  //   Odoslaním objednávky súhlasíte s našimi{" "}
+                  //   <button
+                  //     type="button"
+                  //     className="inline break-words underline hover:text-muted-foreground"
+                  //     onClick={(e) => {
+                  //       e.preventDefault()
+                  //       e.stopPropagation()
+                  //       openLegalDocument("terms")
+                  //     }}
+                  //   >
+                  //     všeobecnými obchodnými podmienkami
+                  //   </button>
+                  //   ,{" "}
+                  //   <button
+                  //     type="button"
+                  //     className="inline break-words underline hover:text-muted-foreground"
+                  //     onClick={(e) => {
+                  //       e.preventDefault()
+                  //       e.stopPropagation()
+                  //       openLegalDocument("withdrawal")
+                  //     }}
+                  //   >
+                  //     podmienkami odstúpenia od zmluvy
+                  //   </button>{" "}
+                  //   a{" "}
+                  //   <button
+                  //     type="button"
+                  //     className="inline break-words underline hover:text-muted-foreground"
+                  //     onClick={(e) => {
+                  //       e.preventDefault()
+                  //       e.stopPropagation()
+                  //       openLegalDocument("privacy")
+                  //     }}
+                  //   >
+                  //     zásadami ochrany osobných údajov
+                  //   </button>
+                  // </span>
+                  <span className="leading-relaxed font-normal text-foreground">
                     Odoslaním objednávky súhlasíte s našimi{" "}
-                    <a href="/agb" className="underline hover:text-blue-600">
+                    <a
+                      className="underline hover:text-muted-foreground"
+                      onClick={() => {
+                        openLegalDocument("terms")
+                      }}
+                    >
                       všeobecnými obchodnými podmienkami
                     </a>
                     ,{" "}
                     <a
-                      href="/widerruf"
-                      className="underline hover:text-blue-600"
+                      className="underline hover:text-muted-foreground"
+                      onClick={() => {
+                        openLegalDocument("withdrawal")
+                      }}
                     >
                       podmienkami odstúpenia od zmluvy
                     </a>{" "}
                     a{" "}
                     <a
-                      href="/datenschutz"
-                      className="underline hover:text-blue-600"
+                      className="underline hover:text-muted-foreground"
+                      onClick={() => {
+                        openLegalDocument("privacy")
+                      }}
                     >
                       zásadami ochrany osobných údajov
                     </a>

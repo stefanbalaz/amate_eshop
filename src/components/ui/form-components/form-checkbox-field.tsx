@@ -1,24 +1,24 @@
-import { useFieldContext } from "@/hooks/form-context";
-import { useStore } from "@tanstack/react-form";
-import { nanoid } from "nanoid";
-import { Text } from "../components/text";
-import { CheckboxField } from "../components";
-import { cn } from "@/utils/style";
-import type { ReactNode } from "react";
+import { useFieldContext } from "@/hooks/form-context"
+import { useStore } from "@tanstack/react-form"
+import { nanoid } from "nanoid"
+import { Text } from "../components/text"
+import { CheckboxField } from "../components"
+import { cn } from "@/utils/style"
+import type { ReactNode } from "react"
 import {
   getDisplayedFieldError,
   getFormErrorMessage,
-} from "@/utils/form/form-errors";
+} from "@/utils/form/form-errors"
 
 interface FormCheckboxFieldProps {
-  label: string | ReactNode;
-  required?: boolean;
-  id?: string;
-  error?: string;
-  className?: string;
-  wrapperClassName?: string;
-  description?: string;
-  initiallyFilled?: boolean;
+  label: string | ReactNode
+  required?: boolean
+  id?: string
+  error?: string
+  className?: string
+  wrapperClassName?: string
+  description?: string
+  initiallyFilled?: boolean
 }
 
 export default function FormCheckboxField({
@@ -30,25 +30,25 @@ export default function FormCheckboxField({
   initiallyFilled = false,
   id,
 }: FormCheckboxFieldProps) {
-  const field = useFieldContext<boolean>();
+  const field = useFieldContext<boolean>()
   // const errors = useStore(field.store, (state) => state.meta.errors);
-  const meta = useStore(field.store, (state) => state.meta);
+  const meta = useStore(field.store, (state) => state.meta)
 
   const displayedError = getDisplayedFieldError(meta, {
     initiallyFilled,
-  });
+  })
   const submitError =
     getFormErrorMessage(meta.errorMap?.onSubmit) ??
-    getFormErrorMessage(meta.errorMap?.onServer);
+    getFormErrorMessage(meta.errorMap?.onServer)
   const fallbackMetaError = meta.errors
     .map((item) => getFormErrorMessage(item))
-    .find(Boolean);
-  const error = submitError ?? displayedError ?? fallbackMetaError;
+    .find(Boolean)
+  const error = submitError ?? displayedError ?? fallbackMetaError
   const checkboxId =
     id ??
     (typeof label === "string"
       ? `checkbox-${label.toLowerCase().replace(/\s+/g, "-")}`
-      : `checkbox-${nanoid()}`);
+      : `checkbox-${nanoid()}`)
 
   return (
     <div className={wrapperClassName ?? "mb-8"}>
@@ -81,5 +81,5 @@ export default function FormCheckboxField({
         </Text>
       )}
     </div>
-  );
+  )
 }

@@ -16,6 +16,12 @@ export type ProductFeaturing = SelectionSet<
   typeof ProductFeaturingSelectionSet
 >
 
+export type CreateProductFeaturingInput =
+  Schema["ProductFeaturing"]["createType"]
+
+export type UpdateProductFeaturingInput =
+  Schema["ProductFeaturing"]["updateType"]
+
 export const ProductFeaturingTypeKeys: TypeKeysEnum<ProductFeaturing> = {
   id: {
     type: "id",

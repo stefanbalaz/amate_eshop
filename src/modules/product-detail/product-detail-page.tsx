@@ -10,14 +10,14 @@ import {
   zeroBottle,
 } from "@/assets/images/products"
 import { useCart } from "@/context/use-cart"
-import useProductsList from "@/hooks/core/Product/useProductList"
+import useProductsList from "@/hooks/core/product/use-products-list"
 import { useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ProductDetailSections } from "./product-detail-sections.tsx"
 import ProductImageCard from "./product-image-card.tsx"
 import ProductInfoSection from "./product-info-section.tsx"
 import { Button } from "@/components/index.ts"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 
 const productImageByFileName: Record<string, string> = {
   classicBottle,
@@ -143,41 +143,60 @@ export default function ProductDetailPage() {
     paragraphs: string[]
   }
 
+  const toParagraphStrings = (value: unknown): string[] => {
+    if (value == null) return []
+    if (Array.isArray(value)) {
+      return value.map((entry) =>
+        typeof entry === "string" ? entry : JSON.stringify(entry)
+      )
+    }
+    if (typeof value === "string") return [value]
+    return [String(value)]
+  }
+
   const productDescription: DescriptionBlock[] = (() => {
-    let desc = product?.productDescription
+    let desc: unknown = product?.productDescription
 
     // If desc is a string, try to parse as JSON
     if (typeof desc === "string") {
+      const rawDescription = desc
       try {
-        desc = JSON.parse(desc)
+        desc = JSON.parse(rawDescription) as unknown
       } catch {
-        // fallback: treat as single paragraph
-        return [
-          {
-            paragraphs: [desc],
-          },
-        ]
+        return [{ paragraphs: [rawDescription] }]
       }
     }
 
     // Case 1: already parsed (ARRAY)
     if (Array.isArray(desc)) {
-      return desc.map((item: any) => ({
-        headline: item.headline,
-        paragraphs: Array.isArray(item.paragraphs)
-          ? item.paragraphs
-          : item.paragraph
-            ? [item.paragraph]
-            : [],
-      }))
+      return desc.map((item: unknown) => {
+        const block = item as {
+          headline?: unknown
+          paragraphs?: unknown
+          paragraph?: unknown
+        }
+        const headline =
+          typeof block.headline === "string" ? block.headline : undefined
+        const paragraphs = Array.isArray(block.paragraphs)
+          ? toParagraphStrings(block.paragraphs)
+          : typeof block.paragraph === "string"
+            ? [block.paragraph]
+            : []
+        return { headline, paragraphs }
+      })
     }
 
-    // Case 2: DynamoDB format
-    if (desc?.L) {
-      return desc.L.map((item: any) => ({
+    if (desc && typeof desc === "object" && "L" in desc) {
+      const dynamo = desc as {
+        L: { M: Record<string, { S?: string; L?: { S: string }[] }> }[]
+      }
+
+      return dynamo.L.map((item) => ({
         headline: item.M.headline?.S,
         paragraphs: Array.isArray(item.M.paragraphs?.L)
-          ? item.M.paragraphs.L.map((p: any) => p.S)
+          ? item.M.paragraphs.L.map((p) => p.S).filter(
+              (s): s is string => typeof s === "string"
+            )
           : item.M.paragraph?.S
             ? [item.M.paragraph.S]
             : [],
@@ -347,13 +366,21 @@ export default function ProductDetailPage() {
           />
         </div>
 
-        <div className="mb-16 pt-20">
+        <div className="mb-16 flex items-center justify-between pt-20">
           <Button
             iconLeft={<ArrowLeft />}
-            label="Ku všetkým produktom"
+            label="Vybrať ďalšie produkty"
             size="xl"
             variant="secondary"
             onClick={() => navigate("/#products-heading")}
+          />
+
+          <Button
+            iconRight={<ArrowRight />}
+            variant="secondary"
+            size="xl"
+            label="Prejsť do košíka"
+            onClick={() => navigate("/checkout")}
           />
         </div>
 

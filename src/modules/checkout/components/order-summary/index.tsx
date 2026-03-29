@@ -1,5 +1,4 @@
 import { useCart } from "@/context/use-cart"
-import useProductsList from "@/hooks/core/Product/useProductList"
 import { Separator } from "../../../../components/ui/primitives"
 
 const tailwindColorToHex: Record<string, string> = {
@@ -170,6 +169,8 @@ import {
 } from "@heroicons/react/24/outline"
 import { BottleIcon } from "../icons"
 import type { CartFormApi } from "@/hooks/use-cart-form"
+import { cn } from "@/utils/style"
+import useProductsList from "@/hooks/core/product/use-products-list"
 
 const SHIPPING_FEE = 4.9
 const TAX_RATE = 0.23
@@ -312,8 +313,13 @@ export function OrderSummary({ form }: OrderSummaryProps) {
                   onChange={(val) => changeQty(bottle.id, val)}
                 />
 
-                <span className="w-16 shrink-0 text-right text-sm font-semibold text-foreground tabular-nums">
-                  {quantity > 0 ? fmt(bottle.unitPrice * quantity) : "—"}
+                <span
+                  className={cn(
+                    "w-16 shrink-0 text-right text-sm font-semibold text-foreground tabular-nums",
+                    quantity > 0 ? "text-foreground" : "text-gray-300"
+                  )}
+                >
+                  {quantity > 0 ? fmt(bottle.unitPrice * quantity) : "0,00 €"}
                 </span>
               </li>
             )

@@ -1,2 +1,6 @@
 export * from "./product.types"
+export * from "./product-feature.types"
+export * from "./product-featuring.types"
+export * from "./order.types"
+export * from "./order-item.types"
 export { queryClient, QueryKeys } from "@/lib/queryClient"

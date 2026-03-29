@@ -11,6 +11,8 @@ export function Header() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  console.log("Header rendered with company data:", header)
+
   const openCompanyInfoDrawer = () => {
     openDrawer({
       drawerID: "company-info",
@@ -20,6 +22,7 @@ export function Header() {
           <p className="mt-2 text-sm text-muted-foreground">
             {header.phone.display}
           </p>
+          <h2 className="text-lg font-semibold">{header.eshop.label}</h2>
           <div className="mt-6">
             <button
               type="button"
@@ -76,6 +79,15 @@ export function Header() {
             <Phone className="h-4 w-4" />
             <span className="hidden sm:inline">{header.phone.display}</span>
           </a>
+
+          {/* Hash link => use <a> */}
+          <button
+            type="button"
+            onClick={() => navigate("/checkout")}
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {header.eshop.label}
+          </button>
 
           <Link
             to="/checkout"

@@ -75,35 +75,89 @@ const schema = a.schema({
       // ------------------------
       // productFeatures: a.hasMany("ProductFeature", "productID"),
       productFeatures: a.hasMany("ProductFeatureAssignment", "productID"),
+
+      // ✅ ADD THIS
+      orderItems: a.hasMany("OrderItem", "productId"),
     })
     .authorization((allow) => [allow.guest()]),
 
-  // ------------------------
-  // ORDER
-  // ------------------------
+  Address: a.customType({
+    streetName: a.string(),
+    houseNumber: a.string(),
+    zip: a.string(),
+    city: a.string(),
+    country: a.string(),
+  }),
+
+  OrderItem: a
+    .model({
+      orderID: a.id().required(),
+
+      // ✅ ADD THIS
+      order: a.belongsTo("Order", "orderID"),
+
+      productId: a.id().required(),
+      product: a.belongsTo("Product", "productId"),
+
+      quantity: a.integer().required(),
+
+      productName: a.string().required(),
+      priceCents: a.integer().required(),
+    })
+    .authorization((allow) => [allow.guest()]),
+
   Order: a
     .model({
       orderNumber: a.string().required(),
+
+      // ------------------------
+      // STATUS
+      // ------------------------
       status: a.string(),
       paymentMethod: a.string(),
       paymentStatus: a.string(),
 
+      // ------------------------
+      // PRICING
+      // ------------------------
       currency: a.string().required(),
       totalCents: a.integer().required(),
 
+      // ------------------------
+      // CUSTOMER
+      // ------------------------
       email: a.email().required(),
+      phone: a.string(),
+
       firstName: a.string(),
       lastName: a.string(),
 
-      deliveryAddress: a.string(),
-      invoiceAddress: a.string(),
+      // ------------------------
+      // ADDRESSES
+      // ------------------------
+      deliveryAddress: a.ref("Address"),
+      invoiceAddress: a.ref("Address"),
 
+      isDifferentInvoice: a.boolean(),
+
+      // ------------------------
+      // COMPANY INFO
+      // ------------------------
       isCompany: a.boolean(),
       companyName: a.string(),
+      companyRegistrationNumber: a.string(),
+      taxIdentificationNumber: a.string(),
+      vatNumber: a.string(),
 
+      // ------------------------
+      // OTHER
+      // ------------------------
       orderNotes: a.string(),
 
-      items: a.json().required(),
+      // ------------------------
+      // RELATION → OrderItems
+      // ------------------------
+      items: a.hasMany("OrderItem", "orderID"),
     })
     .authorization((allow) => [allow.guest()]),
 

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 101" fill="none">
+  <g transform="translate(-11.5,-1)">
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="round">
+      <path d="M31.63,31.498L44.784,9.575C44.784,9.575 50.069,4.454 54.699,9.084L66.952,29.861" />
+      <path d="M45.946,70L20.383,69.57C20.383,69.57 13.305,67.554 15,61.229L26.867,40.228" />
+      <path d="M72.132,38.351L84.541,60.704C84.541,60.704 86.333,67.842 80.008,69.537L55.888,69.76" />
+    </g>
+    <text
+      x="37.938526"
+      y="53.128342"
+      fill="currentColor"
+      font-size="22"
+      font-weight="700"
+      font-family="system-ui, Segoe UI, Arial, sans-serif"
+    >70</text>
+    <text
+      x="36.083447"
+      y="95.702003"
+      fill="currentColor"
+      font-size="22"
+      font-weight="700"
+      font-family="system-ui, Segoe UI, Arial, sans-serif"
+    >GL</text>
+    <path fill="currentColor" fill-rule="nonzero" d="M46.053,69.823L60.723,61.182L60.723,78.196L46.053,69.823Z" />
+    <path fill="currentColor" fill-rule="nonzero" d="M17.254,40.266L31.924,31.625L31.924,48.64L17.254,40.266Z" />
+    <path fill="currentColor" fill-rule="nonzero" d="M57.279,29.988L71.948,21.347L71.948,38.361L57.279,29.988Z" />
+  </g>
+</svg>

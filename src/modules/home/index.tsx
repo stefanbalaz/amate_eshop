@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
-import useProductsList from "@/hooks/core/Product/useProductList"
 import { Hero, OurStory, ProductGrid, WhatIsMate } from "./components"
+import useProductsList from "@/hooks/core/product/use-products-list"
 
 export default function Home() {
   const { productsList, isLoading } = useProductsList()

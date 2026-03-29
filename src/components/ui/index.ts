@@ -21,9 +21,8 @@
  */
 
 // Re-export components (preferred layer for consumers)
-export * from "./components";
-export * from "./form-components";
-export * from "../../hooks";
+export * from "./components"
+export * from "./form-components"
 
 // Primitives should be imported directly from @/ui/primitives
 // to avoid naming conflicts with enhanced components

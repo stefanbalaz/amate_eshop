@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 259 329" fill="none">
+  <g transform="translate(0,-1)">
+    <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <g fill="none" stroke-width="8">
+        <path stroke-width="14" d="M7.25,167L133,167L7.25,167Z" />
+        <path d="M129,168L114,326L39.9,326L11.2,168" />
+        <path d="M16.5,196L126,196L124,222L21,222L25.7,248L121.2,248L119,274L30.6,274L35.2,300L116,300M95.4,326L101,167L70.9,167L76,326L59.9,326L40.2,167" />
+      </g>
+      <path
+        fill="currentColor"
+        stroke="currentColor"
+        stroke-width="4"
+        d="M59.3,64.5L219,64.9C233,80.5 256,133 257,146L177,150C175,123 163,98.9 161,95.1L59.3,64.5ZM177,155L150,330L212,215L240,331L256,157L177,155Z"
+      />
+      <circle fill="currentColor" stroke="none" cx="187" cy="31" r="30" />
+      <path
+        fill="currentColor"
+        stroke="currentColor"
+        stroke-width="6"
+        d="M28.6,138C56,124 55.8,103 58,103C84,114 109,117 125,113C78.4,149 102,150 95.6,148C75.9,141 47.3,162 28.6,138M77.5,110C103,110 103,102 108,99.7C108,99.7 111,110 117,115"
+      />
+    </g>
+  </g>
+</svg>

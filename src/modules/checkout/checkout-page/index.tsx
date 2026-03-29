@@ -1,8 +1,8 @@
-import { CheckoutForm, OrderSummary } from "../components";
-import { useCartForm } from "@/hooks/use-cart-form";
+import { CheckoutForm, OrderSummary } from "../components"
+import { useCartForm } from "@/hooks/use-cart-form"
 
 export default function CheckoutPage() {
-  const form = useCartForm();
+  const form = useCartForm()
 
   return (
     <div className="min-h-svh bg-muted/40 py-12">
@@ -17,5 +17,5 @@ export default function CheckoutPage() {
         </form.AppForm>
       </div>
     </div>
-  );
+  )
 }

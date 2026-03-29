@@ -1,29 +1,29 @@
-"use client";
+"use client"
 
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form"
 
-import { useFieldContext } from "@/hooks/form-context";
-import { cn } from "@/utils/style";
-import { Text } from "../components/text";
-import { getDisplayedFieldError } from "@/utils/form/form-errors";
-import type { SelectOption } from "../components/inputs/select-field/select-field";
-import { SelectField } from "../components";
+import { useFieldContext } from "@/hooks/form-context"
+import { cn } from "@/utils/style"
+import { Text } from "../components/text"
+import { getDisplayedFieldError } from "@/utils/form/form-errors"
+import type { SelectOption } from "../components/inputs/select-field/select-field"
+import { SelectField } from "../components"
 
 interface FormSelectFieldProps {
-  label: string;
-  required?: boolean;
-  options: SelectOption[];
-  className?: string;
-  wrapperClassName?: string;
-  placeholder?: string;
-  readOnly?: boolean;
-  disabled?: boolean;
-  description?: string;
-  hint?: string;
-  fullWidth?: boolean;
-  closeMenuOnSelect?: boolean;
-  isMulti?: boolean;
-  initiallyFilled?: boolean;
+  label: string
+  required?: boolean
+  options: SelectOption[]
+  className?: string
+  wrapperClassName?: string
+  placeholder?: string
+  readOnly?: boolean
+  disabled?: boolean
+  description?: string
+  hint?: string
+  fullWidth?: boolean
+  closeMenuOnSelect?: boolean
+  isMulti?: boolean
+  initiallyFilled?: boolean
 }
 
 export default function FormSelectField({
@@ -40,26 +40,22 @@ export default function FormSelectField({
   initiallyFilled = false,
   ...props
 }: FormSelectFieldProps) {
-  const field = useFieldContext<string | string[]>();
-  const meta = useStore(field.store, (state) => state.meta);
+  const field = useFieldContext<string | string[]>()
+  const meta = useStore(field.store, (state) => state.meta)
 
   const error = getDisplayedFieldError(meta, {
     initiallyFilled,
-  });
+  })
 
-  const {
-    isMulti = false,
-    fullWidth = false,
-    closeMenuOnSelect = true,
-  } = props;
+  const { isMulti = false, fullWidth = false, closeMenuOnSelect = true } = props
 
   const selectedOption = isMulti
     ? options.filter((opt) =>
         Array.isArray(field.state.value)
           ? field.state.value.includes(opt.value)
-          : false,
+          : false
       )
-    : (options.find((opt) => opt.value === field.state.value) ?? null);
+    : (options.find((opt) => opt.value === field.state.value) ?? null)
 
   return (
     <div className={wrapperClassName ?? "mb-8"}>
@@ -69,7 +65,7 @@ export default function FormSelectField({
         className={cn("mb-1 block", error && "text-button-destructive")}
       >
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="ml-1 text-red-500">*</span>}
       </Text>
       {description && (
         <Text size="sm" variant="subtle" className="mb-1">
@@ -78,20 +74,21 @@ export default function FormSelectField({
       )}
 
       <SelectField
+        name={field.name}
         value={selectedOption}
         onChange={(selected) => {
-          let safeValue;
+          let safeValue
           if (isMulti) {
             safeValue = Array.isArray(selected)
               ? selected.map((opt) => opt.value)
-              : [];
+              : []
           } else {
-            safeValue = selected ? (selected as { value: string }).value : "";
+            safeValue = selected ? (selected as { value: string }).value : ""
           }
-          field.handleChange(safeValue);
+          field.handleChange(safeValue)
         }}
         onBlur={() => {
-          field.handleBlur();
+          field.handleBlur()
         }}
         options={options}
         placeholder={placeholder || "Vybrať..."}
@@ -114,5 +111,5 @@ export default function FormSelectField({
         </Text>
       )}
     </div>
-  );
+  )
 }

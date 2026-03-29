@@ -1,25 +1,25 @@
-import { useStore } from "@tanstack/react-form";
-import { nanoid } from "nanoid";
-import { useMemo } from "react";
+import { useStore } from "@tanstack/react-form"
+import { nanoid } from "nanoid"
+import { useMemo } from "react"
 
-import { getDisplayedFieldError } from "@/utils/form/form-errors";
-import { cn } from "@/utils/style";
-import { useFieldContext } from "@/hooks/form-context";
-import { Text } from "../components/text";
-import { Input } from "../primitives";
+import { getDisplayedFieldError } from "@/utils/form/form-errors"
+import { cn } from "@/utils/style"
+import { useFieldContext } from "@/hooks/form-context"
+import { Text } from "../components/text"
+import { Input } from "../primitives"
 
 interface FormTextInputProps {
-  label: string;
-  required?: boolean;
-  type?: string;
-  readOnly?: boolean;
-  disabled?: boolean;
-  className?: string;
-  wrapperClassName?: string;
-  description?: string;
-  hint?: string;
-  autoComplete?: string;
-  initiallyFilled?: boolean;
+  label: string
+  required?: boolean
+  type?: string
+  readOnly?: boolean
+  disabled?: boolean
+  className?: string
+  wrapperClassName?: string
+  description?: string
+  hint?: string
+  autoComplete?: string
+  initiallyFilled?: boolean
 }
 
 export default function FormTextInput({
@@ -35,13 +35,13 @@ export default function FormTextInput({
   autoComplete,
   initiallyFilled = false,
 }: FormTextInputProps) {
-  const field = useFieldContext<string>();
-  const meta = useStore(field.store, (state) => state.meta);
+  const field = useFieldContext<string>()
+  const meta = useStore(field.store, (state) => state.meta)
 
   const error = getDisplayedFieldError(meta, {
     initiallyFilled,
-  });
-  const id = useMemo(() => nanoid(), []);
+  })
+  const id = useMemo(() => nanoid(), [])
 
   return (
     <div className={wrapperClassName ?? "mb-8"}>
@@ -54,7 +54,7 @@ export default function FormTextInput({
           className={cn("mb-1 block", error && "text-button-destructive")}
         >
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="ml-1 text-red-500">*</span>}
         </Text>
       )}
       {description && (
@@ -63,6 +63,7 @@ export default function FormTextInput({
         </Text>
       )}
       <Input
+        name={field.name}
         type={type}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
@@ -85,5 +86,5 @@ export default function FormTextInput({
         </Text>
       )}
     </div>
-  );
+  )
 }
