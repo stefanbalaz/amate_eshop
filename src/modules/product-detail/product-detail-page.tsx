@@ -17,6 +17,7 @@ import ProductImageCard from "./product-image-card.tsx"
 import ProductInfoSection from "./product-info-section.tsx"
 import { Button } from "@/components/index.ts"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { useProductsList } from "@/hooks/index.ts"
 
 const productImageByFileName: Record<string, string> = {
   classicBottle,
@@ -122,7 +123,9 @@ const resolveIconByName = (iconName?: string | null): string | undefined => {
 export default function ProductDetailPage() {
   const navigate = useNavigate()
   const { productId } = useParams<{ productId: string }>()
+  // const { productsList, isLoading } = useProductsList()
   const { productsList, isLoading } = useProductsList()
+
   const {
     getCurrentAmount,
     handleDecreaseAmount,

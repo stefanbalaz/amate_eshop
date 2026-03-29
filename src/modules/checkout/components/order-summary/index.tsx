@@ -8,7 +8,8 @@ import {
 import { BottleIcon } from "../icons"
 import type { CartFormApi } from "@/hooks/use-cart-form"
 import { cn } from "@/utils/style"
-import { useProductsList } from "@/hooks"
+import { useProductsList } from "@/hooks/index"
+// import { useProductsList } from "@/hooks"
 
 const tailwindColorToHex: Record<string, string> = {
   "slate-50": "#f8fafc",
