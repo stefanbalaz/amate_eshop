@@ -34,6 +34,9 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.guest()]),
 
+  // ------------------------
+  // PRODUCT FEATURE ASSIGNMENT (join model for many-to-many relation between Product and ProductFeature)
+  // ------------------------
   ProductFeatureAssignment: a
     .model({
       productID: a.id().required(),
@@ -89,11 +92,13 @@ const schema = a.schema({
     country: a.string(),
   }),
 
+  // ------------------------
+  // ORDER ITEM
+  // ------------------------
   OrderItem: a
     .model({
       orderID: a.id().required(),
 
-      // ✅ ADD THIS
       order: a.belongsTo("Order", "orderID"),
 
       productId: a.id().required(),
@@ -106,6 +111,9 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.guest()]),
 
+  // ------------------------
+  // ORDER
+  // ------------------------
   Order: a
     .model({
       orderNumber: a.string().required(),

@@ -26,11 +26,19 @@
 //   }
 // }
 
+import type {
+  LambdaFunctionURLEvent,
+  LambdaFunctionURLResult,
+} from "aws-lambda"
 import Stripe from "stripe"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
-export const handler = async (event: any) => {
+export const handler = async (
+  event: LambdaFunctionURLEvent
+): Promise<LambdaFunctionURLResult> => {
+  console.log("HANDLER CALLED") // 👈 important test log
+
   // ✅ Handle CORS preflight
   if (event.requestContext?.http?.method === "OPTIONS") {
     return {
@@ -44,11 +52,20 @@ export const handler = async (event: any) => {
       return response(400, { error: "Missing request body" })
     }
 
-    const body = JSON.parse(event.body)
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(event.body)
+    } catch {
+      return response(400, { error: "Invalid JSON" })
+    }
+
+    if (!isPlainObject(parsed)) {
+      return response(400, { error: "Invalid body" })
+    }
 
     // ❗ NEVER trust frontend amount
     // 👉 Replace this later with real cart calculation
-    const amount = Number(body.amount)
+    const amount = Number(parsed.amount)
 
     if (!amount || amount <= 0) {
       return response(400, { error: "Invalid amount" })
@@ -70,7 +87,7 @@ export const handler = async (event: any) => {
     return response(200, {
       clientSecret: paymentIntent.client_secret,
     })
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Stripe error:", err)
 
     return response(500, {
@@ -87,7 +104,10 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST,OPTIONS",
 }
 
-function response(statusCode: number, body: any) {
+function response(
+  statusCode: number,
+  body: Record<string, unknown>
+): LambdaFunctionURLResult {
   return {
     statusCode,
     headers: {
@@ -96,4 +116,8 @@ function response(statusCode: number, body: any) {
     },
     body: JSON.stringify(body),
   }
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
 }

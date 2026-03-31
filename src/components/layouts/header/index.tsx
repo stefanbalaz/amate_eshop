@@ -66,7 +66,7 @@ export function Header() {
           <button
             type="button"
             onClick={openCompanyInfoDrawer}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="cursor-pointer text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {header.infoLink.label}
           </button>
@@ -84,7 +84,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => navigate("/checkout")}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="cursor-pointer text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {header.eshop.label}
           </button>
