@@ -124,6 +124,7 @@ const schema = a.schema({
       status: a.string(),
       paymentMethod: a.string(),
       paymentStatus: a.string(),
+      paymentIntentId: a.string(),
 
       // ------------------------
       // PRICING

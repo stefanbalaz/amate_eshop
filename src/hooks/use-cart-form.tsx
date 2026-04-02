@@ -1,71 +1,71 @@
 // import { checkoutFormSchema } from "@/modules/checkout/schemas/checkout-form-schema";
 // import { checkoutFormSchema } from "@/modules/checkout/schemas/checkout-form-schema";
 import { useCart } from "@/context/use-cart"
-import { useOrderCreate } from "./core"
+// import { useOrderCreate } from "./core"
 import { useAppForm } from "./form"
 import { defaultValues } from "@/modules/checkout/components/default-values"
-import { nanoid } from "nanoid"
-import type { CreateOrderInput } from "@/types"
-import { client } from "@/lib/amplifyClient"
+// import { nanoid } from "nanoid"
+// import type { CreateOrderInput } from "@/types"
+// import { client } from "@/lib/amplifyClient"
 
-type FormType = typeof defaultValues // or your actual form type
+// type FormType = typeof defaultValues // or your actual form type
 
-function mapFormToOrder(
-  form: FormType,
-  // amounts: any // ideally type this
-): CreateOrderInput {
-  return {
-    orderNumber: nanoid(),
-    currency: "EUR",
-    totalCents: 1000, // TODO: calculate properly
-    // items: Object.entries(amounts).map(([productId, quantity]) => ({
-    //   productId,
-    //   quantity,
-    // })),
-    // items: JSON.parse(JSON.stringify(amounts)),
+// function mapFormToOrder(
+//   form: FormType
+//   // amounts: any // ideally type this
+// ): CreateOrderInput {
+//   return {
+//     orderNumber: nanoid(),
+//     currency: "EUR",
+//     totalCents: 1000, // TODO: calculate properly
+//     // items: Object.entries(amounts).map(([productId, quantity]) => ({
+//     //   productId,
+//     //   quantity,
+//     // })),
+//     // items: JSON.parse(JSON.stringify(amounts)),
 
-    // items: JSON.stringify({
-    //   items: Object.entries(amounts).map(([productId, quantity]) => ({
-    //     productId,
-    //     quantity,
-    //   })),
-    // }),
+//     // items: JSON.stringify({
+//     //   items: Object.entries(amounts).map(([productId, quantity]) => ({
+//     //     productId,
+//     //     quantity,
+//     //   })),
+//     // }),
 
-    email: form.email,
-    phone: form.phone,
+//     email: form.email,
+//     phone: form.phone,
 
-    firstName: form.firstName,
-    lastName: form.lastName,
+//     firstName: form.firstName,
+//     lastName: form.lastName,
 
-    deliveryAddress: {
-      streetName: form.deliveryStreetName,
-      houseNumber: form.deliveryHouseNumber,
-      zip: form.deliveryZip,
-      city: form.deliveryCity,
-      country: form.deliveryCountry,
-    },
+//     deliveryAddress: {
+//       streetName: form.deliveryStreetName,
+//       houseNumber: form.deliveryHouseNumber,
+//       zip: form.deliveryZip,
+//       city: form.deliveryCity,
+//       country: form.deliveryCountry,
+//     },
 
-    invoiceAddress: form.isDifferentInvoice
-      ? {
-          streetName: form.invoiceStreetName,
-          houseNumber: form.invoiceHouseNumber,
-          zip: form.invoiceZip,
-          city: form.invoiceCity,
-          country: form.invoiceCountry,
-        }
-      : null,
+//     invoiceAddress: form.isDifferentInvoice
+//       ? {
+//           streetName: form.invoiceStreetName,
+//           houseNumber: form.invoiceHouseNumber,
+//           zip: form.invoiceZip,
+//           city: form.invoiceCity,
+//           country: form.invoiceCountry,
+//         }
+//       : null,
 
-    isDifferentInvoice: form.isDifferentInvoice,
+//     isDifferentInvoice: form.isDifferentInvoice,
 
-    isCompany: form.isCompany,
-    companyName: form.companyName,
-    companyRegistrationNumber: form.companyRegistrationNumber,
-    taxIdentificationNumber: form.taxIdentificationNumber,
-    vatNumber: form.vatNumber,
+//     isCompany: form.isCompany,
+//     companyName: form.companyName,
+//     companyRegistrationNumber: form.companyRegistrationNumber,
+//     taxIdentificationNumber: form.taxIdentificationNumber,
+//     vatNumber: form.vatNumber,
 
-    orderNotes: form.orderNotes,
-  }
-}
+//     orderNotes: form.orderNotes,
+//   }
+// }
 
 // export const useCartForm = () => {
 //   const { mutate: createOrder } = useOrderCreate()
@@ -92,44 +92,90 @@ function mapFormToOrder(
 //   })
 // }
 
+// export const useCartForm = () => {
+//   const { mutateAsync: createOrder } = useOrderCreate()
+//   const { amounts } = useCart()
+
+//   return useAppForm({
+//     defaultValues,
+
+//     onSubmit: async ({ value }) => {
+//       const orderInput = mapFormToOrder(value)
+
+//       console.log("Creating order:", orderInput)
+
+//       // 1️⃣ create order
+//       const order = await createOrder(orderInput)
+
+//       if (!order?.id) {
+//         console.error("Order creation failed")
+//         return
+//       }
+
+//       const orderId = order.id
+
+//       // 2️⃣ create order items
+//       await Promise.all(
+//         Object.entries(amounts).map(([productId, quantity]) =>
+//           client.models.OrderItem.create({
+//             orderID: orderId,
+//             productId,
+//             quantity,
+
+//             // 🔥 snapshot (replace with real product lookup!)
+//             productName: productId, // TEMP
+//             priceCents: 500, // TEMP
+//           })
+//         )
+//       )
+
+//       console.log("Order + items created successfully")
+//     },
+//   })
+// }
+
+// export type CartFormApi = ReturnType<typeof useCartForm>
+
 export const useCartForm = () => {
-  const { mutateAsync: createOrder } = useOrderCreate()
   const { amounts } = useCart()
 
   return useAppForm({
     defaultValues,
 
     onSubmit: async ({ value }) => {
-      const orderInput = mapFormToOrder(value)
+      try {
+        console.log("Submitting checkout")
 
-      console.log("Creating order:", orderInput)
-
-      // 1️⃣ create order
-      const order = await createOrder(orderInput)
-
-      if (!order?.id) {
-        console.error("Order creation failed")
-        return
-      }
-
-      const orderId = order.id
-
-      // 2️⃣ create order items
-      await Promise.all(
-        Object.entries(amounts).map(([productId, quantity]) =>
-          client.models.OrderItem.create({
-            orderID: orderId,
-            productId,
-            quantity,
-
-            // 🔥 snapshot (replace with real product lookup!)
-            productName: productId, // TEMP
-            priceCents: 500, // TEMP
-          })
+        const res = await fetch(
+          "https://l4bx7qmy6jgob5hkczjfcynvhq0wbnky.lambda-url.eu-central-1.on.aws/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              items: amounts,
+              form: value,
+            }),
+          }
         )
-      )
 
-      console.log("Order + items created successfully")
+        const data = await res.json()
+
+        if (!res.ok) {
+          console.error("Checkout failed:", data)
+          return
+        }
+
+        console.log("Success:", data)
+
+        // const { clientSecret, orderId } = data
+
+        // 👉 NEXT STEP (Stripe Elements)
+        // confirm payment with clientSecret
+      } catch (err) {
+        console.error("Checkout error:", err)
+      }
     },
   })
 }

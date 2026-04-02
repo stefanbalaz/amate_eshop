@@ -712,6 +712,13 @@
               "isRequired": false,
               "attributes": []
             },
+            "paymentIntentId": {
+              "name": "paymentIntentId",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
             "currency": {
               "name": "currency",
               "isArray": false,
